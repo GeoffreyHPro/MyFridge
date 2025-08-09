@@ -1,6 +1,8 @@
 name: Back Spring Boot
 on: 
   push:
+    paths:
+      - backend/**
 
 jobs:
   build:
