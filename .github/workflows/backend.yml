@@ -1,6 +1,8 @@
 name: Back Spring Boot
 on: 
   push:
+    paths:
+      - 'backend/**'
 
 jobs:
   build:
@@ -33,6 +35,8 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean install
+        working-directory: backend
 
       - name: Run tests
         run: mvn test
+        working-directory: backend
