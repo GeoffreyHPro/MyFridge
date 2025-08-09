@@ -13,12 +13,6 @@ import { ToastModule } from "primeng/toast";
 })
 export class HomeComponent {
 
-  myPoints = [
-    { lat: 48.8566, lng: 2.3522, label: 'Paris' },
-    { lat: 51.5074, lng: -0.1278, label: 'Londres' },
-    { lat: 40.7128, lng: -74.0060, label: 'New York' }
-  ];
-
   constructor(private messageService: MessageService) { }
 
   submitForm() {

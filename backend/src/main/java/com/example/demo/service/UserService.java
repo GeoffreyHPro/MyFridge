@@ -64,6 +64,7 @@ public class UserService implements UserDetailsService {
       userRepository.save(newUser);
       return newUser;
     }
+    
     throw new UserAlreadyCreatedException();
   }
 
