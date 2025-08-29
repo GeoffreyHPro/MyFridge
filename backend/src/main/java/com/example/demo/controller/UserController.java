@@ -10,6 +10,7 @@ import com.example.demo.service.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -38,12 +39,13 @@ public class UserController {
     @Operation(summary = "Create new user", description = "Create new account with pseudo and password given")
     @PostMapping
     public ResponseEntity<Object> createUser(@RequestBody @Valid UserCommand userCommand) {
-        System.out.println("used");
+        System.out.println("yes");
         userService.createUser(userCommand.pseudo(), userCommand.password());
         return ResponseEntity.status(HttpStatus.CREATED).body("");
     }
 
     @Operation(summary = "Get user informations", description = "Get user informations given the pseudo")
+    @SecurityRequirement(name = "Authorization")
     @GetMapping("/{pseudo}")
     public ResponseEntity<UserLightDto> getUser(@PathVariable String pseudo) {
         User newUser = userService.getUserByPseudo(pseudo);

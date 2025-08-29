@@ -1,4 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
-@import "primeng/resources/themes/lara-light-blue/theme.css"; 
+@import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.min.css";
 @import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
+
+/* Other css files : Primeng components */
+@import "assets/styles/components/.p-dialog.css";
+@import "assets/styles/components/.p-button.css";
+
+:root {
+  --primary-green: #2A5703;
+  --primary-green-light: #4B8A0A;
+  --primary-green-transparent: rgba(42, 87, 3, 0.25);
+  --white: white;
+}
+
+
+hr {
+  width: 100% !important;
+}
+
+@media (max-width: 640px) {
+  .p-toast {
+    width: 90%;
+  }
+}

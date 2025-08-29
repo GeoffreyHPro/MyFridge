@@ -1,0 +1,14 @@
+img {
+    height: 500px;
+    width: auto;
+}
+
+.subTitle {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.big-title{
+    font-size: 5rem;
+    font-weight: bold;
+}

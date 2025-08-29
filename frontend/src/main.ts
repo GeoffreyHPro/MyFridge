@@ -3,11 +3,15 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { AppComponent } from './app/app.component';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { errorInterceptor } from './app/core/interceptor/error-interceptor';
+import { MessageService } from 'primeng/api';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withInterceptors([errorInterceptor])),
     provideAnimations(),
-    provideRouter(routes)]
+    provideRouter(routes),
+    MessageService
+  ]
 });
