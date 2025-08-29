@@ -1,0 +1,17 @@
+<div class="p-1">
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="p-fluid p-formgrid p-grid login-form">
+        <div class="p-field p-col-12 mb-4">
+            <label for="pseudo" class="p-d-block p-mb-2">Pseudo: </label>
+            <input class="w-full p-d-block" pInputText name="pseudo" [(ngModel)]="user.pseudo" />
+        </div>
+
+        <div class="p-field p-col-12 mb-4">
+            <label for="password">Mot de passe: </label>
+            <input class="w-full" pInputText name="password" [(ngModel)]="user.password" />
+        </div>
+
+        <div class="p-field p-col-12">
+            <button p-button class="success" type="submit" pButton label="Se connecter" [disabled]="loginForm.invalid"></button>
+        </div>
+    </form>
+</div>

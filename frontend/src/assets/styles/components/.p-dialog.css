@@ -1,0 +1,33 @@
+.p-dialog {
+    border: 1px solid black;
+}
+
+.p-dialog-header {
+    border-bottom: 1px solid black;
+    padding: 10px 20px;
+}
+
+.p-dialog-content {
+    padding: 15px;
+}
+
+.p-dialog input {
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-top: 5px;
+    padding: 6px;
+    outline: none;
+}
+
+input:focus {
+    border-color: var(--primary-green);
+}
+
+
+/* Responsive mobile section */
+
+@media (max-width: 640px) {
+    .p-dialog {
+        width: 90%;
+    }
+}

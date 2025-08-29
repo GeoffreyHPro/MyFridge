@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
@@ -26,11 +28,15 @@ public class SecurityConfig {
 
     @Autowired
     private UserService userService;
+
     @Autowired
     private JWTAuthFilter jwtAuthFilter;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private CookieAuthFilter cookieAuthFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector)
@@ -40,17 +46,34 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(mvcMatcherBuilder.pattern("/token/**")).permitAll()
+                        //.requestMatchers(mvcMatcherBuilder.pattern("/token/**")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/swagger-ui/**")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/v3/**")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/h2-console/**")).permitAll()
-                        .requestMatchers(mvcMatcherBuilder.pattern("/user/**")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern("/user")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern("/user/**")).hasAnyAuthority("USER")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider()).addFilterBefore(
-                        jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(cookieAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                
 
         return http.build();
     }
+
+    @Configuration
+    public static class WebConfig implements WebMvcConfigurer {
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**")
+                    .allowedOrigins("http://localhost:4200")
+                    .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+                    .allowedHeaders("*")
+                    .allowCredentials(true);
+        }
+    }
+
 
     @Bean
     public AuthenticationProvider authenticationProvider() {

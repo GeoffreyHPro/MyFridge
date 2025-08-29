@@ -1,6 +1,18 @@
-<p>home works!</p>
+<div class="surface-ground min-h-screen flex flex-column justify-content-between">
+  <div class="flex align-items-center justify-content-center h-screen">
+    <div class="hidden sm:flex w-6 justify-content-center p-4">
+      <img src="assets/logo.png">
+    </div>
 
-<div class="card flex justify-center">
-  <p-toast />
-  <p-button type="button" class="btn" label="Submit" (onClick)="submitForm()"></p-button>
+    <div class="flex flex-column w-12 sm:w-4 justify-content-center gap-3 p-4">
+      <p class="big-title">MY FRIDGE</p>
+      <p class="subTitle">Vous avez déjà un compte ?</p>
+      <hr>
+      <button pButton class="success" type="button" label="Connexion" (click)="onConnect()"></button>
+      <p class="font-bold">Inscrivez-vous !</p>
+      <button pButton class="success" type="button" label="Inscription"></button>
+    </div>
+  </div>
 </div>
+
+<p-toast></p-toast>

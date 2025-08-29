@@ -1,0 +1,17 @@
+<p-toolbar styleClass="border-none">
+
+  <ng-template pTemplate="left">
+    <p-menubar [model]="menuItems"></p-menubar>
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <div class="user-area" (click)="openUserMenu($event)">
+      <p-button>
+        {{ userPseudo }}
+        <i class="pi pi-angle-down ml-2"></i>
+      </p-button>
+    </div>
+    <p-menu #userMenu [model]="userMenuItems" [popup]="true"></p-menu>
+  </ng-template>
+
+</p-toolbar>
