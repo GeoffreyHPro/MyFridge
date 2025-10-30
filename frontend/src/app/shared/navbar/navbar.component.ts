@@ -30,8 +30,8 @@ export class NavbarComponent {
 
   menuItems: MenuItem[] = [
     { label: 'Produits', icon: 'pi pi-box', routerLink: ['/products'] },
-    { label: 'Commandes', icon: 'pi pi-shopping-cart', routerLink: ['/orders'] },
-    { label: 'Aide', icon: 'pi pi-question-circle', routerLink: ['/help'] }
+    { label: 'Commandes', icon: 'pi pi-shopping-cart', routerLink: [] },
+    { label: 'Aide', icon: 'pi pi-question-circle', routerLink: [] }
   ];
 
   userMenuItems: MenuItem[] = [

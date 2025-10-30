@@ -40,7 +40,26 @@ export class HomeComponent {
             this.router.navigate(["/products"])
           },
           error: () => {
-            this.messageService.add({ severity: 'error', summary: 'Connextion échouée', detail: 'Informations de compte incorrects' })
+            this.messageService.add({ severity: 'error', summary: 'Connexion échouée', detail: 'Informations de compte incorrects' })
+          }
+        })
+      }
+    });
+  }
+
+  onSubscribe(): void {
+    this.ref = this.dialogService.open(UserLoginComponent, {
+      header: "Inscription",
+    })
+
+    this.ref.onClose.subscribe((user) => {
+      if (user) {
+        this.userService.createUser(user).subscribe({
+          next: () => {
+            this.messageService.add({ severity: 'success', summary: 'Inscription Réussie', detail: 'Le compte a bien été créé' })
+          },
+          error: () => {
+            this.messageService.add({ severity: 'error', summary: 'Inscription Echouée', detail: 'Ce pseudo est déjà utilisé' })
           }
         })
       }
