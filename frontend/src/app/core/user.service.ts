@@ -40,6 +40,10 @@ export class UserService {
     return this.http.get<void>(`${this.baseUrl}/user/string`, { withCredentials: true })
   }
 
+  getOwnUserInfos(): Observable<void> {
+    return this.http.get<void>(`${this.baseUrl}/user`, { withCredentials: true })
+  }
+
   logout(): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/token`, { withCredentials: true })
       .pipe(tap(() => {

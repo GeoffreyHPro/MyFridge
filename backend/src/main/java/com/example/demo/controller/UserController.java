@@ -15,6 +15,8 @@ import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +51,15 @@ public class UserController {
     @GetMapping("/{pseudo}")
     public ResponseEntity<UserLightDto> getUser(@PathVariable String pseudo) {
         User newUser = userService.getUserByPseudo(pseudo);
+        return ResponseEntity.status(HttpStatus.OK).body(userConverter.applyLight(newUser));
+    }
+
+    @Operation(summary = "Get actual user informations", description = "Get actual user informations")
+    @SecurityRequirement(name = "Authorization")
+    @GetMapping()
+    public ResponseEntity<UserLightDto> getOwnUserInformations() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User newUser = userService.getUserByPseudo(auth.getName());
         return ResponseEntity.status(HttpStatus.OK).body(userConverter.applyLight(newUser));
     }
 }
