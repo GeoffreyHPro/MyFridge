@@ -15,6 +15,7 @@ import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +42,6 @@ public class UserController {
     @Operation(summary = "Create new user", description = "Create new account with pseudo and password given")
     @PostMapping
     public ResponseEntity<Object> createUser(@RequestBody @Valid UserCommand userCommand) {
-        System.out.println("yes");
         userService.createUser(userCommand.pseudo(), userCommand.password());
         return ResponseEntity.status(HttpStatus.CREATED).body("");
     }
@@ -56,6 +56,7 @@ public class UserController {
 
     @Operation(summary = "Get actual user informations", description = "Get actual user informations")
     @SecurityRequirement(name = "Authorization")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT') or hasRole('USER')")
     @GetMapping()
     public ResponseEntity<UserLightDto> getOwnUserInformations() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

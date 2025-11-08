@@ -36,7 +36,7 @@ public class UserService implements UserDetailsService {
     return userRepository.findByPseudo(pseudo).orElseThrow(() -> new UserNotFoundException());
   }
 
-  public String getRole(String pseudo){
+  public String getRole(String pseudo) {
     User user = getUserByPseudo(pseudo);
     return user.getAuthorities().stream().findFirst().map(GrantedAuthority::getAuthority).orElse("USER");
   }
@@ -64,7 +64,7 @@ public class UserService implements UserDetailsService {
       userRepository.save(newUser);
       return newUser;
     }
-    
+
     throw new UserAlreadyCreatedException();
   }
 

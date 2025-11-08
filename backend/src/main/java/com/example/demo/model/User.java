@@ -19,7 +19,7 @@ public class User implements UserDetails {
 
     @Id
     @NotNull
-    private String idUser;
+    private String id;
     private String pseudo;
     private String password;
     private String role;
@@ -29,7 +29,7 @@ public class User implements UserDetails {
     }
 
     public User(String pseudo, String password) {
-        this.idUser = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID().toString();
         this.pseudo = pseudo;
         this.password = password;
         this.role = "USER";
@@ -42,7 +42,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(this.role));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + this.role));
     }
 
     @Override
