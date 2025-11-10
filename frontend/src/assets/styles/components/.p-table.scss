@@ -1,0 +1,27 @@
+@import './../../../assets/styles/variables.scss';
+
+.table-size .p-datatable-wrapper {
+  max-height: 600px;
+  margin-top: 1rem;
+
+  @media(max-width: $desktopSize) {
+    max-height: 600px;
+  }
+}
+
+.p-paginator .p-highlight {
+  color: var(--primary-green);
+  background: var(--primary-green-transparent);
+}
+
+.p-paginator .p-dropdown:not(.p-disabled):hover {
+  border-color: var(--primary-green);
+}
+
+.p-dropdown.p-focus {
+  border-color: var(--primary-green) !important;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  border-color: var(--primary-green);
+}

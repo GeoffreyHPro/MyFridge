@@ -26,9 +26,9 @@ public class ProductService {
     return productRepository.findByEan(ean).orElseThrow(() -> new ProductNotFoundException());
   }
 
-  public Page<Product> getProducts(int page, int size) {
+  public Page<Product> getProducts(int page, int size, String name) {
     Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
-    return productRepository.findAll(pageable);
+    return productRepository.getProducts(name, pageable);
   }
 
   public Product addProduct(Product product) {

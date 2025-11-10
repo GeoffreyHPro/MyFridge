@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from "primeng/toast";
-import { UserService } from '../../core/user.service';
 import { AUTHORS, TITLE } from '../../shared/constants';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { Router } from '@angular/router';
+import { UserRepositoryService } from '../../core/user-repository.service';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +23,7 @@ export class HomeComponent {
 
   constructor(
     private messageService: MessageService,
-    private userService: UserService,
+    private userRepositoryService: UserRepositoryService,
     private dialogService: DialogService,
     private router: Router
   ) { }
@@ -35,7 +35,7 @@ export class HomeComponent {
 
     this.ref.onClose.subscribe((user) => {
       if (user) {
-        this.userService.loginUser(user).subscribe({
+        this.userRepositoryService.loginUser(user).subscribe({
           next: () => {
             this.router.navigate(["/products"])
           },
@@ -54,7 +54,7 @@ export class HomeComponent {
 
     this.ref.onClose.subscribe((user) => {
       if (user) {
-        this.userService.createUser(user).subscribe({
+        this.userRepositoryService.createUser(user).subscribe({
           next: () => {
             this.messageService.add({ severity: 'success', summary: 'Inscription Réussie', detail: 'Le compte a bien été créé' })
           },
@@ -65,5 +65,4 @@ export class HomeComponent {
       }
     });
   }
-
 }

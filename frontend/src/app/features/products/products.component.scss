@@ -1,0 +1,87 @@
+@import './../../../assets/styles/variables.scss';
+
+.table-results {
+    padding: 0 1%;
+
+    @media(max-width: $desktopSize) {
+        padding: 0 5%;
+    }
+}
+
+.btn-add {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+}
+
+.btn-add:hover {
+    transform: scale(1.1);
+    background-color: var(--primary-green-light);
+}
+
+.search-input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 300px;
+    font-size: 1rem;
+    height: 40px;
+
+    @media(max-width: $desktopSize) {
+        width: 70%;
+    }
+
+    &:focus {
+        border-color: var(--primary-green);
+        outline: none;
+        box-shadow: 0 0 4px rgba(42, 87, 3, 0.3);
+    }
+}
+
+.table-results .p-datatable-wrapper {
+    height: 100px;
+}
+
+.search-section {
+    text-align: center;
+}
+
+.btn-search {
+    margin-left: 5px;
+    background: var(--primary-green-light);
+    border: none;
+    border-radius: 0 30px 30px 0;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    height: 40px;
+    width: 80px;
+
+    @media(max-width: $desktopSize) {
+        width: 20%;
+    }
+
+    &:hover {
+        background: var(--primary-green-light);
+        box-shadow: var(--primary-green-light);
+    }
+
+    &:active {
+        transform: scale(0.96);
+    }
+
+    i {
+        font-size: 1.1rem;
+    }
+}

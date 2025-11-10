@@ -1,0 +1,10 @@
+.table-default {
+    tr th {
+        color: white;
+        background: var(--primary-green);
+    }
+
+    tr:nth-child(even) {
+        background-color: var(--primary-green-transparent);
+    }
+}

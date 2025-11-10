@@ -15,7 +15,7 @@ export interface TokenResponse {
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserRepositoryService {
   private baseUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) { }

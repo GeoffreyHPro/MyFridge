@@ -7,7 +7,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { MenuModule } from 'primeng/menu';
 import { Button } from "primeng/button";
 import { SidebarModule } from "primeng/sidebar";
-import { UserService } from '../../core/user.service';
+import { UserRepositoryService } from '../../core/user-repository.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -24,21 +24,20 @@ export class NavbarComponent {
 
   userPseudo: string = localStorage.getItem("pseudo")!;
 
-  constructor(private userService: UserService,
+  constructor(private userRepositoryService: UserRepositoryService,
     private router: Router
-  ){}
+  ) { }
 
   menuItems: MenuItem[] = [
     { label: 'Produits', icon: 'pi pi-box', routerLink: ['/products'] },
-    { label: 'Commandes', icon: 'pi pi-shopping-cart', routerLink: [] },
-    { label: 'Aide', icon: 'pi pi-question-circle', routerLink: [] }
+    { label: 'Mon frigo', icon: 'pi pi-shopping-cart', routerLink: ['/myFridge'] }
   ];
 
   userMenuItems: MenuItem[] = [
     {
       label: 'Se déconnecter',
       icon: 'pi pi-sign-out',
-      command: () => this.userService.logout().subscribe(() => {
+      command: () => this.userRepositoryService.logout().subscribe(() => {
         this.router.navigate(["/"]);
       })
     }

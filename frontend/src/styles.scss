@@ -3,16 +3,21 @@
 @import "primeng/resources/primeng.min.css";
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
+@import "assets/styles/variables.scss";
 
 /* Other css files : Primeng components */
 @import "assets/styles/components/.p-dialog.css";
 @import "assets/styles/components/.p-button.css";
+@import "assets/styles/components/.p-table.scss";
 
 :root {
   --primary-green: #2A5703;
   --primary-green-light: #4B8A0A;
   --primary-green-transparent: rgba(42, 87, 3, 0.25);
   --white: white;
+
+  --tabletSize: 480px;
+  --desktopSize: 768px;
 }
 
 
