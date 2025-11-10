@@ -1,7 +1,9 @@
 package com.example.demo.model;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -14,9 +16,17 @@ public class Product {
     @Id
     @NotNull
     private String id;
+    @Column(unique = true)
     private String ean;
     private String name;
     private String detail;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+    @Column(nullable = false, updatable = false)
+    private String createdBy;
+    private LocalDateTime updatedAt;
+    private String updatedBy;
+    private String status;
 
     public Product() {
     }
@@ -27,6 +37,7 @@ public class Product {
         this.ean = ean;
         this.name = name;
         this.detail = detail;
+        this.createdAt = LocalDateTime.now();
     }
 
     public String getId() {
@@ -45,6 +56,26 @@ public class Product {
         return detail;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
     public void setEan(String ean) {
         this.ean = ean;
     }
@@ -55,6 +86,18 @@ public class Product {
 
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
 }

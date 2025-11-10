@@ -47,8 +47,8 @@ public class ProductController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT') or hasRole('USER')")
     @GetMapping()
     public ResponseEntity<Page<Product>> getProducts(@PathParam(value = "page") int page,
-            @PathParam(value = "size") int size) {
-        Page<Product> products = productService.getProducts(page, size);
+            @PathParam(value = "size") int size, @PathParam(value = "name") String name) {
+        Page<Product> products = productService.getProducts(page, size, name);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(products);
     }
