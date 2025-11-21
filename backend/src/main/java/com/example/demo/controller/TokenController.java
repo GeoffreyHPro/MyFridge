@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping(path = "/token")
-@Api(tags = "Token", description = "Endpoint")
+@Api(tags = "Token")
 public class TokenController {
 
     @Autowired
