@@ -5,6 +5,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
+import { eanValidator } from '../validators';
 
 @Component({
   selector: 'app-products-form-add-edit',
@@ -29,9 +30,9 @@ export class ProductsFormAddEditComponent {
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
-      detail: ['', [Validators.required, Validators.minLength(3)]],
-      ean: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(14)]],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
+      detail: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      ean: ['', [Validators.required, eanValidator]],
       status: [this.status[0], [Validators.required]]
     });
   }
@@ -41,14 +42,21 @@ export class ProductsFormAddEditComponent {
     if (!control || !control.touched || control.valid) return '';
 
     if (control.errors?.['required']) return 'Ce champ est requis.';
+
     if (control.errors?.['minlength']) {
       const requiredLength = control.errors['minlength'].requiredLength;
-      return `Ce champ doit contenir au moins ${requiredLength} caractères.`;
+      return `Ce champ doit comporter au minimum ${requiredLength} caractères.`;
     }
+
     if (control.errors?.['maxlength']) {
       const requiredLength = control.errors['maxlength'].requiredLength;
       return `Ce champ ne peut pas dépasser ${requiredLength} caractères.`;
     }
+
+    if (control.errors?.['eanInvalidChars']) return "Ce champ doit comporter que des chiffres";
+
+    if (control.errors?.['eanLength']) return "Ce champ doit comporter entre 8 et 13 chiffres";
+
     return '';
   }
 

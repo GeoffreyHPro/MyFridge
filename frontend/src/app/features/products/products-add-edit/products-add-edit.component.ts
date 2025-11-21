@@ -6,6 +6,7 @@ import { Product, ProductsRepositoryService } from '../../../core/repository/pro
 import { BackButtonComponent } from "../../../shared/back-button/back-button.component";
 import { ToastModule } from "primeng/toast";
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products-add-edit',
@@ -14,24 +15,29 @@ import { MessageService } from 'primeng/api';
   templateUrl: './products-add-edit.component.html',
   styleUrl: './products-add-edit.component.css'
 })
-export class ProductsAddEditComponent {
+export class ProductsAddEditComponent{
 
   constructor(
     private productsActionService: ProductsActionService,
     private productsRepositoryService: ProductsRepositoryService,
     private messageService: MessageService,
-  ) { }
+    private router: Router
+  ) { 
+  }
 
   addProduct(event: Product): void {
-    console.log(event.name);
-    console.log(event);
 
     this.productsRepositoryService.addProduct(event).subscribe({
       next: () => {
         this.messageService.add({ severity: 'success', summary: 'Produit créé', detail: 'Le produit a bien été créé' });
+        this.router.navigateByUrl('/products');
       },
-      error: () => {
-        this.messageService.add({ severity: 'error', summary: 'Produit non créé', detail: "Le produit n'a pas été créé" });
+      error: (error) => {
+        if (error.status === 409) {
+          this.messageService.add({ severity: 'error', summary: 'Produit déjà créé', detail: "Ce produit existe déjà" });
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Produit non créé', detail: "Le produit n'a pas été créé" });
+        }
       }
     });
   }
