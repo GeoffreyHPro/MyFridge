@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { UserRepositoryService } from '../user-repository.service';
+import { UserRepositoryService } from '../repository/user-repository.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {

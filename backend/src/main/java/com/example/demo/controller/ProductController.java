@@ -55,7 +55,7 @@ public class ProductController {
 
     @SecurityRequirement(name = "Authorization")
     @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT')")
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<Object> createProduct(@RequestBody @Valid ProductCommand productCommand) {
         productService.addProduct(productConverter.createProduct(productCommand));
         return ResponseEntity.status(HttpStatus.CREATED).body("");

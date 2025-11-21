@@ -13,6 +13,10 @@ export class ProductsRepositoryService {
   getProducts(page: number, size: number, name: string): Observable<Page<Product>> {
     return this.httpClient.get<Page<Product>>(`${this.baseUrl}/product?page=${page}&size=${size}&name=${name}`, { withCredentials: true })
   }
+
+  addProduct(product: Product): Observable<void> {
+    return this.httpClient.post<void>(`${this.baseUrl}/product`, product, { withCredentials: true });
+  }
 }
 
 export interface Page<T> {
@@ -24,8 +28,8 @@ export interface Page<T> {
 }
 
 export interface Product {
-  id: string;
   ean: string;
   name: string;
   detail: string;
+  status: string;
 }

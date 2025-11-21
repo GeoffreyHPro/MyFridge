@@ -1,6 +1,8 @@
-<app-navbar (logoutClicked)="onLogout()"></app-navbar>
+<app-navbar></app-navbar>
 
-<button class="btn-add">+</button>
+@if(userService.isAdminOrAgent()){
+<button class="btn-add" (click)="redirectToProductAdd()">+</button>
+}
 
 <div class="search-section">
     <input type="text" placeholder="Rechercher par nom..." class="search-input" [(ngModel)]="inputSearchName"

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
+import { UserService } from '../user.service';
 
 export interface User {
   pseudo: string;
@@ -18,7 +19,9 @@ export interface TokenResponse {
 export class UserRepositoryService {
   private baseUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private userService: UserService
+  ) { }
 
   createUser(user: User): Observable<void> {
     return this.http.post<void>(`${this.baseUrl}/user`, user)
@@ -29,6 +32,7 @@ export class UserRepositoryService {
       .pipe(tap((response) => {
         localStorage.setItem("role", response.role);
         localStorage.setItem("pseudo", user.pseudo);
+        this.userService.setUserRole(response.role);
       }));
   }
 

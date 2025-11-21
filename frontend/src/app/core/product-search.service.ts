@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Product, ProductsRepositoryService } from './products-repository.service';
+import { Product, ProductsRepositoryService } from './repository/products-repository.service';
 import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
