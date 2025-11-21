@@ -38,6 +38,7 @@ public class ProductService {
       throw new ProductAlreadyCreatedException();
     }
 
+    product.setCreatedBy("user1");
     productRepository.save(product);
     return product;
   }

@@ -1,5 +1,6 @@
 C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\model\User.java
 C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\repository\UserRepository.java
+C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\command\validator\Ean.java
 C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\controller\UserController.java
 C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\command\PageableCommand.java
 C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\controller\TokenController.java
@@ -30,3 +31,4 @@ C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\con
 C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\dto\ProductLightDto.java
 C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\service\JWTUtils.java
 C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\dto\ProductRichDto.java
+C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\model\Log.java

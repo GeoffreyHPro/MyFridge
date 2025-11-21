@@ -24,7 +24,7 @@ import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/product")
-@Api(tags = "Product", description = "Endpoint")
+@Api(tags = "Product")
 public class ProductController {
 
     private ProductService productService;
@@ -55,8 +55,8 @@ public class ProductController {
 
     @SecurityRequirement(name = "Authorization")
     @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT')")
-    @PostMapping
-    public ResponseEntity<Object> createProduct(@RequestBody @Valid ProductCommand productCommand) {
+    @PostMapping()
+    public ResponseEntity<Object> createProduct(@Valid @RequestBody ProductCommand productCommand) {
         productService.addProduct(productConverter.createProduct(productCommand));
         return ResponseEntity.status(HttpStatus.CREATED).body("");
     }

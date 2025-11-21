@@ -3,9 +3,11 @@ import { HomeComponent } from './features/home/home.component';
 import { AuthGuard } from './core/guard/auth.guard';
 import { ProductsComponent } from './features/products/products.component';
 import { MyFridgeComponent } from './features/my-fridge/my-fridge.component';
+import { ProductsAddEditComponent } from './features/products/products-add-edit/products-add-edit.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent, /*canActivate: [LoginGuard]*/ },
     { path: 'products', component: ProductsComponent, canActivate: [AuthGuard] },
+    { path: 'products/add', component: ProductsAddEditComponent, canActivate: [AuthGuard] },
     { path: 'myFridge', component: MyFridgeComponent, canActivate: [AuthGuard] },
 ];

@@ -5,6 +5,8 @@ import { TabProductsComponent } from '../../shared/generic-tab/generic-tab.compo
 import { IconFieldModule } from "primeng/iconfield";
 import { ProductSearchService, ProductsFilterSearch } from '../../core/product-search.service';
 import { Subscription } from 'rxjs';
+import { UserService } from '../../core/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -23,7 +25,9 @@ export class ProductsComponent {
   inputSearchName: string = '';
 
   constructor(
-    private productSearchService: ProductSearchService
+    private productSearchService: ProductSearchService,
+    protected userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -62,7 +66,9 @@ export class ProductsComponent {
     this.productSearchService.search(event.first / event.rows, event.rows, this.inputSearchName);
   }
 
-  onLogout(): void { }
+  redirectToProductAdd(): void {
+    this.router.navigate(["/products/add"]);
+  }
 
   ngOnDestroy(): void {
     this.productsStateSubscription?.unsubscribe();

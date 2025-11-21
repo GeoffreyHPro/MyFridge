@@ -6,7 +6,7 @@ import { AUTHORS, TITLE } from '../../shared/constants';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { Router } from '@angular/router';
-import { UserRepositoryService } from '../../core/user-repository.service';
+import { UserRepositoryService } from '../../core/repository/user-repository.service';
 
 @Component({
   selector: 'app-home',

@@ -7,7 +7,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { MenuModule } from 'primeng/menu';
 import { Button } from "primeng/button";
 import { SidebarModule } from "primeng/sidebar";
-import { UserRepositoryService } from '../../core/user-repository.service';
+import { UserRepositoryService } from '../../core/repository/user-repository.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -45,9 +45,5 @@ export class NavbarComponent {
 
   openUserMenu(event: MouseEvent) {
     this.userMenu.toggle(event);
-  }
-
-  logout() {
-    this.logoutClicked.emit();
   }
 }

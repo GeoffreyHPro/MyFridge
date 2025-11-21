@@ -1,0 +1,52 @@
+<div class="form-default">
+    <form [formGroup]="form" class="p-fluid">
+
+        <div class="form-row">
+            <label for="ean">EAN</label>
+            <input id="ean" type="text" pInputText formControlName="ean" />
+        </div>
+        @if(getErrorMessage('ean')){
+        <div class="mb-3">
+            <p-message severity="error" [text]="getErrorMessage('ean')"></p-message>
+        </div>
+        }
+
+        <div class="form-row">
+            <label for="name">Nom</label>
+            <input id="name" type="text" pInputText formControlName="name" />
+        </div>
+        @if(getErrorMessage('name')){
+        <div class="mb-3">
+            <p-message severity="error" [text]="getErrorMessage('name')"></p-message>
+        </div>
+        }
+
+        <div class="form-row">
+            <label for="detail">Détail</label>
+            <input id="detail" type="text" pInputText formControlName="detail" />
+        </div>
+        @if(getErrorMessage('detail')){
+        <div class="mb-3">
+            <p-message severity="error" [text]="getErrorMessage('detail')"></p-message>
+        </div>
+        }
+
+        <div class="form-row">
+            <div class="form-row">
+                <label for="status">Status</label>
+                <p-dropdown [options]="status" optionLabel="name" placeholder="Sélectionnez un status"
+                    formControlName="status"></p-dropdown>
+            </div>
+        </div>
+        @if(getErrorMessage('status')){
+        <div class="mb-3">
+            <p-message severity="error" [text]="getErrorMessage('status')"></p-message>
+        </div>
+        }
+
+        <div class="form-row">
+            <button type="submit" pButton label="Ajouter" (click)="onSubmit()"></button>
+        </div>
+
+    </form>
+</div>
