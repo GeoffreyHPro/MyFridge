@@ -90,8 +90,8 @@ public class MealController {
     @SecurityRequirement(name = "Authorization")
     @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT') or hasRole('USER')")
     @DeleteMapping("/{id}/mealItem/{mealItemId}")
-    public ResponseEntity<?> deleteMealitem(@PathVariable String id) throws NotFoundException, NameNotFoundException {
-        mealItemService.deleteMealitem(id);
+    public ResponseEntity<?> deleteMealitem(@PathVariable String id, @PathVariable String mealItemId) throws NotFoundException, NameNotFoundException {
+        mealItemService.deleteMealitem(mealItemId);
         return ResponseEntity.status(HttpStatus.OK).body("");
     }
 }

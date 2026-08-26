@@ -15,4 +15,8 @@ export class MealsRepositoryService {
     return this.httpClient.get<MealRichDto>(`${this.baseUrl}/meal/${id}/full`, { withCredentials: true })
   }
 
+  deleteMealItem(mealId: string, mealItemId: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.baseUrl}/meal/${mealId}/mealItem/${mealItemId}`, { withCredentials: true })
+  }
+
 }

@@ -14,54 +14,27 @@
         </ng-template>
         <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
 
-    <!-- Ligne normale -->
-    <tr>
-        @for (header of itemHeaders; track $index) {
-
-            <td>
-                {{ item[header] }}
-            </td>
-
-        }
-    </tr>
-
-    <!-- Ligne ajout -->
-    @if (rowIndex === items.length - 1) {
-
-        <tr>
-
-            @for (header of itemHeaders; track $index) {
+            <tr>
+                @for (header of itemHeaders; track $index) {
 
                 <td>
-
-                    @if ($index < itemHeaders.length - 1) {
-
-                        <input
-                            type="text"
-                            [(ngModel)]="newRow[header]"
-                        />
-
-                    } @else {
-
-                        <button
-                            type="button"
-                            (click)="addRow()">
-
-                            Ajouter
-
-                        </button>
-
-                    }
-
+                    {{ item[header] }}
                 </td>
 
-            }
+                }
 
-        </tr>
+                <td>
+                    <button pButton type="button" icon="pi pi-pencil" (click)="editItem()">
+                    </button>
+                </td>
 
-    }
+                <td>
+                    <button pButton type="button" icon="pi pi-trash" (click)="deleteItem(id, item)">
+                    </button>
+                </td>
+            </tr>
 
-</ng-template>
+        </ng-template>
 
 
         <ng-template pTemplate="footer">
@@ -73,3 +46,5 @@
         </ng-template>
     </p-table>
 </div>
+
+<p-confirmDialog></p-confirmDialog>

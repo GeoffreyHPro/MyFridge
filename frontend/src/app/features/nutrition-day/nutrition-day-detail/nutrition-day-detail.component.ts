@@ -5,6 +5,7 @@ import { NutritionDayRichDto } from '../../../core/repository/products-repositor
 import { GenericOrderedTabComponent } from "../../../shared/generic-ordered-tab/generic-ordered-tab.component";
 import { ActivatedRoute } from '@angular/router';
 import { NutritionDaysRepositoryService } from '../../../core/repository/nutrition-days-repository.service';
+import { MealsRepositoryService } from '../../../core/repository/meals-repository.service';
 
 @Component({
   selector: 'app-nutrition-day',
@@ -31,6 +32,13 @@ export class NutritionDayDetailComponent {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
 
+    this.nutritionDaysRepositoryService.getNutritionDay(this.id!).subscribe(nutritionDay => {
+      this.nutritionDay = nutritionDay;
+      this.totalItemValues = [nutritionDay.calories, nutritionDay.proteins, nutritionDay.carbohydrates, nutritionDay.lipids];
+    })
+  }
+
+  refreshMeal(): void {
     this.nutritionDaysRepositoryService.getNutritionDay(this.id!).subscribe(nutritionDay => {
       this.nutritionDay = nutritionDay;
       this.totalItemValues = [nutritionDay.calories, nutritionDay.proteins, nutritionDay.carbohydrates, nutritionDay.lipids];
