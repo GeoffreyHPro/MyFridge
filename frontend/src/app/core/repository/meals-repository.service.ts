@@ -19,4 +19,8 @@ export class MealsRepositoryService {
     return this.httpClient.delete<void>(`${this.baseUrl}/meal/${mealId}/mealItem/${mealItemId}`, { withCredentials: true })
   }
 
+  patchMealItem(mealId: string, mealItemId: string, quantity: number): Observable<void> {
+    return this.httpClient.patch<void>(`${this.baseUrl}/meal/${mealId}/mealItem/${mealItemId}`, { quantity }, { withCredentials: true })
+  }
+
 }

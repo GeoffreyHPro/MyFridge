@@ -7,12 +7,13 @@ import { ButtonModule } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MealsRepositoryService } from '../../core/repository/meals-repository.service';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-generic-ordered-tab',
   standalone: true,
   providers: [ConfirmationService],
-  imports: [TableModule, UpperCasePipe, MenuModule, FormsModule, ButtonModule, ConfirmDialogModule],
+  imports: [TableModule, UpperCasePipe, MenuModule, FormsModule, ButtonModule, InputTextModule, ConfirmDialogModule],
   templateUrl: './generic-ordered-tab.component.html',
   styleUrl: './generic-ordered-tab.component.css'
 })
@@ -25,6 +26,8 @@ export class GenericOrderedTabComponent {
   @Output() refreshMeal = new EventEmitter<string>();
 
   newRow: any = {};
+  editingItem: any = null;
+  originalQuantity: number | null = null;
 
   constructor(
     private confirmationService: ConfirmationService,
@@ -53,12 +56,34 @@ export class GenericOrderedTabComponent {
     this.resetNewRow();
   }
 
-  editItem(): void {
+  editItem(item: any): void {
+    this.editingItem = item;
+    this.originalQuantity = item.quantity;
+  }
 
+  saveItem(id: string, item: any): void {
+    console.log('Nouvelle quantité:', item.quantity);
+
+    this.mealsRepositoryService.patchMealItem(id, item.id, item.quantity).subscribe({
+      next: () => {
+        this.refreshMeal.emit(id);
+      }
+    });
+
+    this.editingItem = null;
+    this.originalQuantity = null;
+  }
+
+  cancelEdit(): void {
+    if (this.editingItem) {
+      this.editingItem.quantity = this.originalQuantity;
+    }
+
+    this.editingItem = null;
+    this.originalQuantity = null;
   }
 
   deleteItem(id: string, item: any): void {
-
     this.confirmationService.confirm({
       message: 'Voulez-vous vraiment supprimer cet élément ?',
       header: 'Confirmation',

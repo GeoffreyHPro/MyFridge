@@ -18,14 +18,26 @@
                 @for (header of itemHeaders; track $index) {
 
                 <td>
+                    @if (header === 'quantity' && editingItem === item) {
+                    <input pInputText type="number" [(ngModel)]="item.quantity" min="0" />
+                    } @else {
                     {{ item[header] }}
+                    }
                 </td>
 
                 }
 
                 <td>
-                    <button pButton type="button" icon="pi pi-pencil" (click)="editItem()">
+                    @if (editingItem === item) {
+                    <button pButton type="button" icon="pi pi-check" severity="success" (click)="saveItem(id, item)">
                     </button>
+
+                    <button pButton type="button" icon="pi pi-times" severity="secondary" (click)="cancelEdit()">
+                    </button>
+                    } @else {
+                    <button pButton type="button" icon="pi pi-pencil" (click)="editItem(item)">
+                    </button>
+                    }
                 </td>
 
                 <td>
