@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import lombok.NoArgsConstructor;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,18 +16,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
 public class User implements UserDetails {
 
     @Id
     @NotNull
     private String id;
+
     private String pseudo;
+
     private String password;
+
     private String role;
 
-    public User() {
-
-    }
 
     public User(String pseudo, String password) {
         this.id = UUID.randomUUID().toString();

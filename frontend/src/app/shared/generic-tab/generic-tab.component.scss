@@ -1,0 +1,28 @@
+@import './../../../assets/styles/variables.scss';
+
+.table-default {
+    tr th {
+        color: white;
+        background: var(--primary-green);
+    }
+
+    tr:nth-child(even) {
+        background-color: var(--primary-green-transparent);
+    }
+
+    tbody {
+        td:last-child {
+            width: 15%;
+        }
+
+        a.redirect {
+            text-decoration: underline;
+            font-weight: bold;
+            cursor: pointer; 
+
+            @media(max-width: $desktopSize) {
+                white-space: nowrap;
+            }
+        }
+    }
+}

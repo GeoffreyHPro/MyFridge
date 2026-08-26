@@ -23,15 +23,20 @@ public class Log {
     @Id
     @NotNull
     private String id;
+    
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
     @Column(nullable = false, updatable = false)
     private String createdBy;
+
     @Column(nullable = false, updatable = false)
     @Enumerated(EnumType.STRING)
     private LogType type;
+
     @Column(nullable = false, updatable = false)
     private String status;
+
     private String objectId;
 
     @PrePersist

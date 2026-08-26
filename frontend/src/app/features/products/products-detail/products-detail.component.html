@@ -1,0 +1,12 @@
+<app-navbar></app-navbar>
+
+@if(product){
+<div class="product-detail-section">
+    <div class="detail-section">
+        <h1>{{ product.name | uppercase }}</h1>
+        <h2>{{ product.ean }}</h2>
+    </div>
+    <div class="file-section">
+    </div>
+</div>
+}

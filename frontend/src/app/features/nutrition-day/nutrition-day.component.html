@@ -1,0 +1,11 @@
+<app-navbar></app-navbar>
+
+<h2>Liste</h2>
+
+@if(nutritionDays){
+    @for (day of nutritionDays; track $index) {
+        <a [routerLink]="[day.id]" >{{ $index }}</a><br>
+    }
+}
+
+<button (click)="addNutritionDay()">Ajouter un nouveau programme</button>

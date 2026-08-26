@@ -30,7 +30,7 @@ export class NavbarComponent {
 
   menuItems: MenuItem[] = [
     { label: 'Produits', icon: 'pi pi-box', routerLink: ['/products'] },
-    { label: 'Mon frigo', icon: 'pi pi-shopping-cart', routerLink: ['/myFridge'] }
+    { label: 'Ma journée', icon: 'pi pi-shopping-cart', routerLink: ['/nutritionDay'] }
   ];
 
   userMenuItems: MenuItem[] = [

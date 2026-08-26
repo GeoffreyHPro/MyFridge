@@ -11,7 +11,14 @@
         <ng-template pTemplate="body" let-item>
             <tr>
                 @for (header of itemHeaders; track $index) {
-                <td>{{item[header]}}</td>
+                    @if(header === ''){
+                        <td>
+                            <p-menu #menu [model]="actionsMap.get(item.id)" [popup]="true"></p-menu>
+                            <button (click)="menu.toggle($event)"></button>
+                        </td>
+                    }@else {
+                        <td>{{item[header]}}</td>
+                    }
                 }
             </tr>
         </ng-template>

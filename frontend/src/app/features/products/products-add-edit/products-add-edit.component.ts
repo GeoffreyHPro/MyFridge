@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from "../../../shared/navbar/navbar.component";
 import { ProductsFormAddEditComponent } from "../../../shared/products-form-add-edit/products-form-add-edit.component";
 import { ProductsActionService } from '../../../core/action/products-action.service';
-import { Product, ProductsRepositoryService } from '../../../core/repository/products-repository.service';
+import { Product, ProductCommand, ProductsRepositoryService } from '../../../core/repository/products-repository.service';
 import { BackButtonComponent } from "../../../shared/back-button/back-button.component";
 import { ToastModule } from "primeng/toast";
 import { MessageService } from 'primeng/api';
@@ -25,7 +25,7 @@ export class ProductsAddEditComponent{
   ) { 
   }
 
-  addProduct(event: Product): void {
+  addProduct(event: ProductCommand): void {
 
     this.productsRepositoryService.addProduct(event).subscribe({
       next: () => {

@@ -6,5 +6,5 @@ import jakarta.validation.constraints.NotNull;
 
 public record UserCommand(
         @NotNull @JsonProperty("pseudo") String pseudo,
-        @NotNull @JsonProperty("password") String password) {
-}
+        @NotNull @JsonProperty("password") String password
+) {}

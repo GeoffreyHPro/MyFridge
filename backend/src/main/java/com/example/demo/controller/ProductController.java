@@ -4,16 +4,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.command.NutritionCommand;
 import com.example.demo.command.ProductCommand;
 import com.example.demo.converter.ProductConverter;
-import com.example.demo.dto.ProductLightDto;
+import com.example.demo.dto.product.ProductLightDto;
+import com.example.demo.dto.product.ProductRichDto;
 import com.example.demo.model.Product;
 import com.example.demo.service.ProductService;
 
@@ -37,28 +42,44 @@ public class ProductController {
 
     @SecurityRequirement(name = "Authorization")
     @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT') or hasRole('USER')")
-    @GetMapping("/{ean}")
-    public ResponseEntity<ProductLightDto> getProduct(@PathVariable String ean) {
-        Product product = productService.getProduct(ean);
-        return ResponseEntity.status(HttpStatus.OK).body(productConverter.applyLight(product));
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductRichDto> getProduct(@PathVariable String id) {
+        Product product = productService.getProductById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(productConverter.applyRich(product));
     }
 
     @SecurityRequirement(name = "Authorization")
     @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT') or hasRole('USER')")
     @GetMapping()
-    public ResponseEntity<Page<Product>> getProducts(@PathParam(value = "page") int page,
-            @PathParam(value = "size") int size, @PathParam(value = "name") String name) {
+    public ResponseEntity<Page<ProductLightDto>> getProducts(@PathParam(value = "page") int page,
+            @PathParam(value = "size") int size, @RequestParam(required = false) String name) {
         Page<Product> products = productService.getProducts(page, size, name);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(products);
+                .body(products.map((Product product) -> productConverter.applyLight(product)));
     }
 
     @SecurityRequirement(name = "Authorization")
     @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT')")
     @PostMapping()
     public ResponseEntity<Object> createProduct(@Valid @RequestBody ProductCommand productCommand) {
-        productService.addProduct(productConverter.createProduct(productCommand));
+        productService.addProduct(productCommand);
         return ResponseEntity.status(HttpStatus.CREATED).body("");
+    }
+
+    @SecurityRequirement(name = "Authorization")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT')")
+    @PutMapping("/{id}/nutrition")
+    public ResponseEntity<Object> updateProduct(@PathVariable String id, @Valid @RequestBody NutritionCommand nutritionCommand) {
+        Product product = productService.updateNutrition(id, nutritionCommand);
+        return ResponseEntity.status(HttpStatus.OK).body(productConverter.applyRich(product));
+    }
+
+    @SecurityRequirement(name = "Authorization")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteProduct(@PathVariable String id) {
+        productService.deleteProduct(id);
+        return ResponseEntity.status(HttpStatus.OK).body("");
     }
 
 }

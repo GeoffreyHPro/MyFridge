@@ -31,8 +31,12 @@ export class ProductsFormAddEditComponent {
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
-      detail: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      ean: ['', [Validators.required, eanValidator]],
+      detail: ['', [Validators.minLength(3), Validators.maxLength(100)]],
+      ean: [''],
+      calories: ['', [Validators.required, Validators.min(0)]],
+      proteins: ['', [Validators.required, Validators.min(0)]],
+      carboHydrates: ['', [Validators.required, Validators.min(0)]],
+      lipids: ['', [Validators.required, Validators.min(0)]],
       status: [this.status[0], [Validators.required]]
     });
   }
@@ -57,7 +61,27 @@ export class ProductsFormAddEditComponent {
 
     if (control.errors?.['eanLength']) return "Ce champ doit comporter entre 8 et 13 chiffres";
 
+    if (control.errors?.['min']) return "Ce champ doit avoir des nombres positifs";
+
     return '';
+  }
+
+  private emptyToNull(obj: any): any {
+    const result: any = {};
+
+    Object.keys(obj).forEach(key => {
+      const value = obj[key];
+
+      if (value === '') {
+        result[key] = null;
+      } else if (value && typeof value === 'object' && !Array.isArray(value)) {
+        result[key] = this.emptyToNull(value);
+      } else {
+        result[key] = value;
+      }
+    });
+
+    return result;
   }
 
   onSubmit() {
@@ -67,8 +91,9 @@ export class ProductsFormAddEditComponent {
     }
 
     this.form.value['status'] = this.form.value['status']['code'];
-    this.formProduct.emit(this.form.value);
 
+    const valueWithEmpty = this.emptyToNull(this.form.value);
+    this.formProduct.emit(valueWithEmpty);
   }
 }
 

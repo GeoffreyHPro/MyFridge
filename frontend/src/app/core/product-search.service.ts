@@ -9,7 +9,7 @@ export class ProductSearchService {
   private productsState = new BehaviorSubject<ProductsFilterSearch>({
     name: '',
     products: [],
-    productsHeaders: ['ean', 'name', 'detail'],
+    productsHeaders: ['ean', 'name', 'detail', ''],
     rows: 5,
     page: 0,
     totalRecords: 0
