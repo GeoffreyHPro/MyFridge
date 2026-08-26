@@ -1,6 +1,7 @@
-# MyFridge
+# Nutri-day
 
-This project will the final version of "EcoFridge".
+L'application Nutri-day a pour objectif de faire manger plus sainement et de connaître toutes les informations nutritionnelles que l'on consomme.
+Des informations sur les calories, les protéines, les glucides, les lipides et les fibres pour chaque produit et chaque journée.
 
 # 👩‍💻 Technologies
 
@@ -12,6 +13,10 @@ This project will the final version of "EcoFridge".
 | Front - Angular 18 | version (works) | 
 | --- | --- |
 | npm | 10.5.0 |
+
+| Base de données |  | 
+| --- | --- |
+| PostgreSQL | 16 |
 
 # ⚡️ Standard Execution
 
