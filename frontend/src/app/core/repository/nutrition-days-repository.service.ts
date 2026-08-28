@@ -11,6 +11,8 @@ export class NutritionDaysRepositoryService {
 
   constructor(private httpClient: HttpClient) { }
 
+  /* ------------- GET Endpoints ---------------------- */
+
   getNutritionDays(): Observable<NutritionDayLightDto[]> {
     return this.httpClient.get<NutritionDayLightDto[]>(`${this.baseUrl}/nutritionDay`, { withCredentials: true })
   }
@@ -19,8 +21,10 @@ export class NutritionDaysRepositoryService {
     return this.httpClient.get<NutritionDayRichDto>(`${this.baseUrl}/nutritionDay/${id}`, { withCredentials: true })
   }
 
+  /* ------------- POST Endpoints ---------------------- */
+
   addNutritionDay(): Observable<NutritionDayLightDto[]> {
-    return this.httpClient.post<NutritionDayLightDto[]>(`${this.baseUrl}/nutritionDay`, { withCredentials: true })
+    return this.httpClient.post<NutritionDayLightDto[]>(`${this.baseUrl}/nutritionDay`, {}, { withCredentials: true })
   }
 
 }

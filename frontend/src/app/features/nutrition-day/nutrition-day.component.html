@@ -1,11 +1,47 @@
 <app-navbar></app-navbar>
 
-<h2>Liste</h2>
+<div class="container">
+    <div id="nutrition-days">
+        <h2>Journées de nutritions</h2>
 
-@if(nutritionDays){
-    @for (day of nutritionDays; track $index) {
-        <a [routerLink]="[day.id]" >{{ $index }}</a><br>
+        @if(nutritionDays){
+            @for (day of nutritionDays; track $index) {
+                <a (click)="selectNutritionDay(day.id)">journée de nutritions {{ $index }}</a><br><br>
+            }
+        }
+
+        <div class="add-new-nutrition-day">
+            <p-button (click)="addNutritionDay()">Ajouter un nouveau programme</p-button>
+        </div>
+    </div>
+    @if(currentNutritionDay){
+        <div id="nutrition-day-preview">
+            <h2>Vendredi 28 aout 2026</h2>
+
+            <div id="nutrition-values">
+                <div id="calories"> 🔥 {{ currentNutritionDay!.calories }} kcal / 2000 kcal</div>
+            </div>
+
+            <div class="macros">
+                <div>
+                    <span>🥩 Protéines</span>
+                    <span><strong>{{ currentNutritionDay!.proteins }}</strong> g</span>
+                </div>
+
+                <div>
+                    <span>🍞 Glucides</span>
+                    <span><strong>{{ currentNutritionDay!.carbohydrates }}</strong> g</span>
+                </div>
+
+                <div>
+                    <span>🥑 Lipides</span>
+                    <span><strong>{{ currentNutritionDay!.lipids }}</strong> g</span>
+                </div>
+            </div>
+            <div id="preview-footer">
+                <button (click)="redirectToNutritionDayDetails()">Voir la journée -></button>
+            </div>
+        </div>
     }
-}
-
-<button (click)="addNutritionDay()">Ajouter un nouveau programme</button>
+    
+</div>

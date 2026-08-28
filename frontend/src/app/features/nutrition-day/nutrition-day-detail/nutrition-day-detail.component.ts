@@ -5,11 +5,12 @@ import { NutritionDayRichDto, Product, ProductsRepositoryService } from '../../.
 import { ActivatedRoute } from '@angular/router';
 import { NutritionDaysRepositoryService } from '../../../core/repository/nutrition-days-repository.service';
 import { NutritionDayMealTabAddEditRemove } from "./nutrition-day-meal-tab-add-edit-remove/nutrition-day-meal-tab-add-edit-remove";
+import { Button } from "primeng/button";
 
 @Component({
   selector: 'app-nutrition-day',
   standalone: true,
-  imports: [NavbarComponent, TableModule, NutritionDayMealTabAddEditRemove],
+  imports: [NavbarComponent, TableModule, NutritionDayMealTabAddEditRemove, Button],
   templateUrl: './nutrition-day-detail.component.html',
   styleUrl: './nutrition-day-detail.component.css'
 })

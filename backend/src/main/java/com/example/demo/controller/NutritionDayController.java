@@ -39,6 +39,8 @@ public class NutritionDayController {
         this.nutritionDayService = nutritionDayService;
     }
 
+    /* ----------- GET Endpoints --------- */
+
     @SecurityRequirement(name = "Authorization")
     @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT') or hasRole('USER')")
     @GetMapping("/{id}")
@@ -60,6 +62,8 @@ public class NutritionDayController {
             nutritionDayService.getNutritionDaysByUser(user)
         );
     }
+
+    /* -------------- POST Endpoints --------- */
 
     @SecurityRequirement(name = "Authorization")
     @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT') or hasRole('USER')")

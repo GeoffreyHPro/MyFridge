@@ -3,6 +3,7 @@ package com.example.demo.model;
 import java.util.UUID;
 import java.util.function.Function;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -23,19 +24,19 @@ public class NutritionDay {
     @NotNull
     private String id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Meal breakfast;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Meal morningSnack;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Meal lunch;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Meal afternoonSnack;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Meal dinner;
 
     @ManyToOne
@@ -48,6 +49,7 @@ public class NutritionDay {
 
     public NutritionDay(User user) {
         this.user = user;
+        this.breakfast = new Meal();
     }
 
     public Float getCalories() {
