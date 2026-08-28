@@ -3,52 +3,54 @@
 <h2> </h2>
 
 @if (nutritionDay) {
-    <div class="meal">
-        <h3> Valeurs nutritionnelles de la journée </h3>
-        <app-generic-ordered-tab [itemHeaders]="totalItemHeaders" [totalItems]="totalItemValues"></app-generic-ordered-tab>
-    </div>
+<div class="meal">
+    <h3> Valeurs nutritionnelles de la journée </h3>
+    <app-nutrition-day-meal-tab-add-edit-remove [itemHeaders]="totalItemHeaders"
+        [totalItems]="totalItemValues"></app-nutrition-day-meal-tab-add-edit-remove>
+</div>
 
-    @if (nutritionDay.breakfast) {
-        <div class="meal">
-            <h3> Petit Déjeuner </h3>
-            <app-generic-ordered-tab 
-            [id]="nutritionDay.breakfast.id"
-            (refreshMeal)="refreshMeal()"
-            [itemHeaders]="itemHeaders" [items]="nutritionDay.breakfast.mealItems"
-                [totalItems]="['','', nutritionDay.breakfast.calories, nutritionDay.breakfast.proteins, nutritionDay.breakfast.carbohydrates, nutritionDay.breakfast.lipids]"></app-generic-ordered-tab>
-        </div>
-    }
+@if (nutritionDay.breakfast) {
+<div class="meal">
+    <h3> Petit Déjeuner </h3>
+    <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.breakfast.id" (refreshMeal)="refreshMeal()"
+        [products]="products" [itemHeaders]="itemHeaders" [items]="nutritionDay.breakfast.mealItems"
+        [totalItems]="['','', nutritionDay.breakfast.calories, nutritionDay.breakfast.proteins, nutritionDay.breakfast.carbohydrates, nutritionDay.breakfast.lipids]"></app-nutrition-day-meal-tab-add-edit-remove>
+</div>
+}
 
-    @if (nutritionDay.lunch) {
-        <div class="meal">
-            <h3> Déjeuner </h3>
-            <app-generic-ordered-tab 
-            [id]="nutritionDay.lunch.id"
-            (refreshMeal)="refreshMeal()"
-            [itemHeaders]="itemHeaders" [items]="nutritionDay.lunch.mealItems"
-                [totalItems]="['','', nutritionDay.lunch.calories, nutritionDay.lunch.proteins, nutritionDay.lunch.carbohydrates, nutritionDay.lunch.lipids]"></app-generic-ordered-tab>
-        </div>
-    }
+@if (nutritionDay.morningSnack) {
+<div class="meal">
+    <h3> Petit Déjeuner </h3>
+    <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.breakfast.id" (refreshMeal)="refreshMeal()"
+        [products]="products" [itemHeaders]="itemHeaders" [items]="nutritionDay.breakfast.mealItems"
+        [totalItems]="['','', nutritionDay.breakfast.calories, nutritionDay.breakfast.proteins, nutritionDay.breakfast.carbohydrates, nutritionDay.breakfast.lipids]"></app-nutrition-day-meal-tab-add-edit-remove>
+</div>
+}
 
-    @if (nutritionDay.afternoonSnack) {
-        <div class="meal">
-            <h3> Gouter </h3>
-            <app-generic-ordered-tab 
-            [id]="nutritionDay.afternoonSnack.id"
-            (refreshMeal)="refreshMeal()"
-            [itemHeaders]="itemHeaders" [items]="nutritionDay.afternoonSnack.mealItems"
-                [totalItems]="['','', nutritionDay.afternoonSnack.calories, nutritionDay.afternoonSnack.proteins, nutritionDay.afternoonSnack.carbohydrates, nutritionDay.afternoonSnack.lipids]"></app-generic-ordered-tab>
-        </div>
-    }
+@if (nutritionDay.lunch) {
+<div class="meal">
+    <h3> Déjeuner </h3>
+    <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.lunch.id" (refreshMeal)="refreshMeal()"
+        [products]="products" [itemHeaders]="itemHeaders" [items]="nutritionDay.lunch.mealItems"
+        [totalItems]="['','', nutritionDay.lunch.calories, nutritionDay.lunch.proteins, nutritionDay.lunch.carbohydrates, nutritionDay.lunch.lipids]"></app-nutrition-day-meal-tab-add-edit-remove>
+</div>
+}
 
-    @if (nutritionDay.dinner) {
-        <div class="meal">
-            <h3> Dinner </h3>
-            <app-generic-ordered-tab 
-            [id]="nutritionDay.dinner.id"
-            (refreshMeal)="refreshMeal()"
-            [itemHeaders]="itemHeaders" [items]="nutritionDay.dinner.mealItems"
-                [totalItems]="['','', nutritionDay.dinner.calories, nutritionDay.dinner.proteins, nutritionDay.dinner.carbohydrates, nutritionDay.dinner.lipids]"></app-generic-ordered-tab>
-        </div>
-    }
+@if (nutritionDay.afternoonSnack) {
+<div class="meal">
+    <h3> Gouter </h3>
+    <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.afternoonSnack.id" (refreshMeal)="refreshMeal()"
+        [products]="products" [itemHeaders]="itemHeaders" [items]="nutritionDay.afternoonSnack.mealItems"
+        [totalItems]="['','', nutritionDay.afternoonSnack.calories, nutritionDay.afternoonSnack.proteins, nutritionDay.afternoonSnack.carbohydrates, nutritionDay.afternoonSnack.lipids]"></app-nutrition-day-meal-tab-add-edit-remove>
+</div>
+}
+
+@if (nutritionDay.dinner) {
+<div class="meal">
+    <h3> Dinner </h3>
+    <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.dinner.id" (refreshMeal)="refreshMeal()"
+        [products]="products" [itemHeaders]="itemHeaders" [items]="nutritionDay.dinner.mealItems"
+        [totalItems]="['','', nutritionDay.dinner.calories, nutritionDay.dinner.proteins, nutritionDay.dinner.carbohydrates, nutritionDay.dinner.lipids]"></app-nutrition-day-meal-tab-add-edit-remove>
+</div>
+}
 }

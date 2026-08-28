@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -37,6 +38,10 @@ public class ProductService {
   public Page<Product> getProducts(int page, int size, String name) {
     Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
     return productRepository.getProducts(name, pageable);
+  }
+
+  public List<Product> getAllProducts() {
+    return productRepository.findAll();
   }
 
   public Product addProduct(Product product) {

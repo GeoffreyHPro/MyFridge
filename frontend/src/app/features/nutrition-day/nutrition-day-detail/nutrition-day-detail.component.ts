@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from "../../../shared/navbar/navbar.component";
 import { TableModule } from "primeng/table";
-import { NutritionDayRichDto } from '../../../core/repository/products-repository.service';
-import { GenericOrderedTabComponent } from "../../../shared/generic-ordered-tab/generic-ordered-tab.component";
+import { NutritionDayRichDto, Product, ProductsRepositoryService } from '../../../core/repository/products-repository.service';
+import { GenericOrderedTabComponent } from "./nutrition-day-meal-tab-add-edit-remove/nutrition-day-meal-tab-add-edit-remove";
 import { ActivatedRoute } from '@angular/router';
 import { NutritionDaysRepositoryService } from '../../../core/repository/nutrition-days-repository.service';
-import { MealsRepositoryService } from '../../../core/repository/meals-repository.service';
 
 @Component({
   selector: 'app-nutrition-day',
@@ -23,14 +22,19 @@ export class NutritionDayDetailComponent {
   totalItemHeaders = ['calories', 'proteins', 'carbohydrates', 'lipids'];
   totalItemValues: number[] = []
 
+  products: Product[] = []
+
 
   constructor(
     private nutritionDaysRepositoryService: NutritionDaysRepositoryService,
+    private productsRepositoryService: ProductsRepositoryService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
+
+    this.productsRepositoryService.getAllProducts().subscribe(products => this.products = products);
 
     this.nutritionDaysRepositoryService.getNutritionDay(this.id!).subscribe(nutritionDay => {
       this.nutritionDay = nutritionDay;

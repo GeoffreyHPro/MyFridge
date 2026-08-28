@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +42,8 @@ public class ProductController {
         this.productConverter = productConverter;
     }
 
+    /* -------------------- GET endpoints -------------------------------- */
+
     @SecurityRequirement(name = "Authorization")
     @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT') or hasRole('USER')")
     @GetMapping("/{id}")
@@ -59,6 +63,17 @@ public class ProductController {
     }
 
     @SecurityRequirement(name = "Authorization")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT') or hasRole('USER')")
+    @GetMapping("/all")
+    public ResponseEntity<List<ProductLightDto>> getAllProducts() {
+        List<Product> products = productService.getAllProducts();
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(products.stream().map(product -> productConverter.applyLight(product)).toList());
+    }
+
+    /* -------------------- POST endpoints -------------------------------- */
+
+    @SecurityRequirement(name = "Authorization")
     @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT')")
     @PostMapping()
     public ResponseEntity<Object> createProduct(@Valid @RequestBody ProductCommand productCommand) {
@@ -66,13 +81,18 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body("");
     }
 
+    /* -------------------- PUT endpoints -------------------------------- */
+
     @SecurityRequirement(name = "Authorization")
     @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT')")
     @PutMapping("/{id}/nutrition")
-    public ResponseEntity<Object> updateProduct(@PathVariable String id, @Valid @RequestBody NutritionCommand nutritionCommand) {
+    public ResponseEntity<Object> updateProduct(@PathVariable String id,
+            @Valid @RequestBody NutritionCommand nutritionCommand) {
         Product product = productService.updateNutrition(id, nutritionCommand);
         return ResponseEntity.status(HttpStatus.OK).body(productConverter.applyRich(product));
     }
+
+    /* -------------------- DELETE endpoints -------------------------------- */
 
     @SecurityRequirement(name = "Authorization")
     @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT')")

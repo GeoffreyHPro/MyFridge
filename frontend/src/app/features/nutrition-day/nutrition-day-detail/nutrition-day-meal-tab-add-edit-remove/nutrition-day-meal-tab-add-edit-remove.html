@@ -50,6 +50,54 @@
 
 
         <ng-template pTemplate="footer">
+            @if (id) {
+            <!-- Bouton Ajouter -->
+            @if (!addingProduct) {
+            <tr>
+                <td [attr.colspan]="itemHeaders.length + 2">
+                    <button pButton type="button" icon="pi pi-plus" label="Ajouter un produit" severity="success"
+                        (click)="addProduct()">
+                    </button>
+                </td>
+            </tr>
+            }
+
+            <!-- Ligne d'ajout -->
+            @if (addingProduct) {
+            <tr>
+                <!-- Dropdown produit -->
+                <td>
+                    <p-dropdown [options]="products" optionLabel="name" (onChange)="onProductChange($event)"
+                        placeholder="Sélectionner un produit" [filter]="true" appendTo="body">
+                    </p-dropdown>
+                </td>
+
+                <!-- Quantity -->
+                <td>
+                    <input pInputText type="number" [(ngModel)]="newProduct.quantity" min="1" placeholder="Quantité" />
+                </td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <!-- Actions -->
+                <td>
+                    <button pButton type="button" icon="pi pi-check" severity="success" (click)="saveNewProduct()">
+                    </button>
+                </td>
+                <td>
+                    <button pButton type="button" icon="pi pi-times" severity="secondary" (click)="cancelAddProduct()">
+                    </button>
+                </td>
+
+                <td></td>
+
+            </tr>
+            }
+            }
+
             <tr>
                 @for (total of totalItems; track $index) {
                 <td>{{ total }}</td>
