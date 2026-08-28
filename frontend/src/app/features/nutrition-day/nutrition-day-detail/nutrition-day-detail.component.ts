@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from "../../../shared/navbar/navbar.component";
 import { TableModule } from "primeng/table";
 import { NutritionDayRichDto, Product, ProductsRepositoryService } from '../../../core/repository/products-repository.service';
-import { GenericOrderedTabComponent } from "./nutrition-day-meal-tab-add-edit-remove/nutrition-day-meal-tab-add-edit-remove";
 import { ActivatedRoute } from '@angular/router';
 import { NutritionDaysRepositoryService } from '../../../core/repository/nutrition-days-repository.service';
+import { NutritionDayMealTabAddEditRemove } from "./nutrition-day-meal-tab-add-edit-remove/nutrition-day-meal-tab-add-edit-remove";
 
 @Component({
   selector: 'app-nutrition-day',
   standalone: true,
-  imports: [NavbarComponent, TableModule, GenericOrderedTabComponent],
+  imports: [NavbarComponent, TableModule, NutritionDayMealTabAddEditRemove],
   templateUrl: './nutrition-day-detail.component.html',
   styleUrl: './nutrition-day-detail.component.css'
 })

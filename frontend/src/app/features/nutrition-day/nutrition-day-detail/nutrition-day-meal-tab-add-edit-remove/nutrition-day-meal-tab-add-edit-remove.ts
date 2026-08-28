@@ -18,7 +18,7 @@ import { DropdownModule } from 'primeng/dropdown';
   templateUrl: './nutrition-day-meal-tab-add-edit-remove.html',
   styleUrl: './nutrition-day-meal-tab-add-edit-remove.css'
 })
-export class GenericOrderedTabComponent {
+export class NutritionDayMealTabAddEditRemove {
   @Input() items: any[] = [];
   @Input() itemHeaders: string[] = [];
   @Input() totalItems!: any[];
