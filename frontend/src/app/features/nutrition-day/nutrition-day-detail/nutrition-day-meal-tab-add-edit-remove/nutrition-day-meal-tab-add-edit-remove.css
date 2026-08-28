@@ -1,0 +1,9 @@
+.bg-red {
+    background-color: rgb(104, 32, 32);
+    color: white;
+}
+
+.bg-green {
+    background-color: rgb(33, 99, 33);
+    color: white;
+}

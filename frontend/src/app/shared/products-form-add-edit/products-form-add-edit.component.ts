@@ -5,7 +5,6 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
-import { eanValidator } from '../validators';
 
 @Component({
   selector: 'app-products-form-add-edit',
@@ -30,7 +29,7 @@ export class ProductsFormAddEditComponent {
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       detail: ['', [Validators.minLength(3), Validators.maxLength(100)]],
       ean: [''],
       calories: ['', [Validators.required, Validators.min(0)]],

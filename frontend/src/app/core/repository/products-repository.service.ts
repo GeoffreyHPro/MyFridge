@@ -10,17 +10,27 @@ export class ProductsRepositoryService {
 
   constructor(private httpClient: HttpClient) { }
 
+  /* ------------------ GET Endpoints ------------------------ */
+
   getProducts(page: number, size: number, name: string): Observable<Page<Product>> {
     return this.httpClient.get<Page<Product>>(`${this.baseUrl}/product?page=${page}&size=${size}&name=${name}`, { withCredentials: true })
+  }
+  
+  getAllProducts(): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(`${this.baseUrl}/product/all`, { withCredentials: true })
   }
 
   getProductByEan(ean: string): Observable<Product> {
     return this.httpClient.get<Product>(`${this.baseUrl}/product/${ean}`, { withCredentials: true })
   }
 
+  /* ------------------ POST Endpoints ------------------------ */
+
   addProduct(product: ProductCommand): Observable<void> {
     return this.httpClient.post<void>(`${this.baseUrl}/product`, product, { withCredentials: true });
   }
+
+  /* ------------------ DELETE Endpoints ------------------------ */
 
   deleteProduct(id: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.baseUrl}/product/${id}`, { withCredentials: true });

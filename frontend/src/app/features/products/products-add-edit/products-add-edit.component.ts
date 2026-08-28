@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from "../../../shared/navbar/navbar.component";
 import { ProductsFormAddEditComponent } from "../../../shared/products-form-add-edit/products-form-add-edit.component";
-import { ProductsActionService } from '../../../core/action/products-action.service';
-import { Product, ProductCommand, ProductsRepositoryService } from '../../../core/repository/products-repository.service';
+import { ProductCommand, ProductsRepositoryService } from '../../../core/repository/products-repository.service';
 import { BackButtonComponent } from "../../../shared/back-button/back-button.component";
 import { ToastModule } from "primeng/toast";
 import { MessageService } from 'primeng/api';
@@ -15,14 +14,13 @@ import { Router } from '@angular/router';
   templateUrl: './products-add-edit.component.html',
   styleUrl: './products-add-edit.component.css'
 })
-export class ProductsAddEditComponent{
+export class ProductsAddEditComponent {
 
   constructor(
-    private productsActionService: ProductsActionService,
     private productsRepositoryService: ProductsRepositoryService,
     private messageService: MessageService,
     private router: Router
-  ) { 
+  ) {
   }
 
   addProduct(event: ProductCommand): void {

@@ -11,8 +11,33 @@ export class MealsRepositoryService {
 
   constructor(private httpClient: HttpClient) { }
 
+  /* ------------------ GET Endpoints ------------------------ */
+
   getMeal(id: string): Observable<MealRichDto> {
     return this.httpClient.get<MealRichDto>(`${this.baseUrl}/meal/${id}/full`, { withCredentials: true })
   }
 
+  /* ------------------ POST Endpoints ------------------------ */
+
+  addMealItem(id: string, mealItemCommand: MealItemAddCommand): Observable<void> {
+    return this.httpClient.post<void>(`${this.baseUrl}/meal/${id}/mealItem`, mealItemCommand, { withCredentials: true })
+  }
+
+  /* ------------------ DELETE Endpoints ------------------------ */
+
+  deleteMealItem(mealId: string, mealItemId: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.baseUrl}/meal/${mealId}/mealItem/${mealItemId}`, { withCredentials: true })
+  }
+
+  /* ------------------ PATCH Endpoints ------------------------ */
+
+  patchMealItem(mealId: string, mealItemId: string, quantity: number): Observable<void> {
+    return this.httpClient.patch<void>(`${this.baseUrl}/meal/${mealId}/mealItem/${mealItemId}`, { quantity }, { withCredentials: true })
+  }
+
+}
+
+export interface MealItemAddCommand {
+  productId: string;
+  quantity: number;
 }

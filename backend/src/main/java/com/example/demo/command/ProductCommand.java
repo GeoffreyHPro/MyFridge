@@ -10,8 +10,8 @@ import jakarta.validation.constraints.Size;
 
 public record ProductCommand(
         @Nullable @Ean @JsonProperty("ean") String ean,
-        @NotNull @Size(min = 3, max = 10) @JsonProperty("name") String name,
-        @Nullable @Size(min = 3, max = 30) @JsonProperty("detail") String detail,
+        @NotNull @Size(min = 3, max = 50) @JsonProperty("name") String name,
+        @Nullable @Size(min = 3, max = 100) @JsonProperty("detail") String detail,
         @NotNull @Positive @JsonProperty("calories") Float calories,
         @NotNull @Positive @JsonProperty("proteins") Float proteins,
         @NotNull @Positive @JsonProperty("carboHydrates") Float carboHydrates,
