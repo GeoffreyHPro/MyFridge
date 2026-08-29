@@ -93,7 +93,10 @@
         }
 
         <div class="form-row">
-            <button type="submit" pButton label="Ajouter" (click)="onSubmit()"></button>
+            <button type="submit" pButton 
+                [label]="product ? 'Modifier' : 'Ajouter'" 
+                [disabled]="product ? !hasChanges() : false"
+                (click)="onSubmit()"></button>
         </div>
 
     </form>

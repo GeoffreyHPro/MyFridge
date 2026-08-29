@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from "../../../shared/navbar/navbar.component";
 import { ProductsFormAddEditComponent } from "../../../shared/products-form-add-edit/products-form-add-edit.component";
-import { ProductCommand, ProductsRepositoryService } from '../../../core/repository/products-repository.service';
+import { ProductCommand, ProductDto, ProductsRepositoryService } from '../../../core/repository/products-repository.service';
 import { BackButtonComponent } from "../../../shared/back-button/back-button.component";
 import { ToastModule } from "primeng/toast";
 import { MessageService } from 'primeng/api';
@@ -16,15 +16,32 @@ import { Router } from '@angular/router';
 })
 export class ProductsAddEditComponent {
 
+  isReadOnly: boolean = false;
+  id: string | undefined = undefined;
+  product: ProductDto | undefined = undefined;
+
   constructor(
     private productsRepositoryService: ProductsRepositoryService,
     private messageService: MessageService,
     private router: Router
   ) {
+    const url = this.router.url;
+    this.isReadOnly = url.split('/').filter(Boolean).pop() !== 'edit';
+    if (!this.isReadOnly) {
+      this.id = this.router.url.split('/').filter(Boolean).at(-2);
+    }
+  }
+
+  async ngOnInit(): Promise<void> {
+    if (!this.isReadOnly) {
+      this.productsRepositoryService.getProductById(this.id!).subscribe(product => {
+        this.product = product;
+        console.log(product)
+      })
+    }
   }
 
   addProduct(event: ProductCommand): void {
-
     this.productsRepositoryService.addProduct(event).subscribe({
       next: () => {
         this.messageService.add({ severity: 'success', summary: 'Produit créé', detail: 'Le produit a bien été créé' });

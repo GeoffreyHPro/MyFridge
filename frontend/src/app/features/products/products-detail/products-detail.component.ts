@@ -23,6 +23,6 @@ export class ProductsDetailComponent {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id')!;
 
-    this.productRepositoryService.getProductByEan(this.id).subscribe(product => this.product = product);
+    this.productRepositoryService.getProductById(this.id).subscribe(product => this.product = product);
   }
 }

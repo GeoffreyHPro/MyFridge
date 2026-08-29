@@ -12,14 +12,15 @@ import { MenuModule } from "primeng/menu";
 import { MenuItem } from 'primeng/api';
 import { ProductsRepositoryService } from '../../core/repository/products-repository.service';
 import { UserService } from '../../core/user.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-generic-tab',
   standalone: true,
-  imports: [TableModule, HttpClientModule, InputTextModule, IconFieldModule, InputIconModule, TagModule, UpperCasePipe, MenuModule],
+  imports: [TableModule, HttpClientModule, InputTextModule, IconFieldModule, InputIconModule, TagModule, UpperCasePipe, MenuModule, ReactiveFormsModule, ButtonModule],
   templateUrl: './generic-tab.component.html',
-  styleUrl: './generic-tab.component.scss',
-  encapsulation: ViewEncapsulation.None
+  styleUrl: './generic-tab.component.scss'
 })
 export class TabProductsComponent {
   @Input() itemList: any[] = [];
@@ -36,7 +37,7 @@ export class TabProductsComponent {
     private router: Router,
     private productsRepositoryService: ProductsRepositoryService,
     protected userService: UserService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.lazyLoad.emit();
@@ -53,6 +54,11 @@ export class TabProductsComponent {
   redirectUrl(id: string): void {
     const lastUrlSegment = this.router.url;
     this.router.navigateByUrl(lastUrlSegment + '/' + id + '/detail');
+  }
+
+  editProductRedirectionUrl(id: string): void {
+    const lastUrlSegment = this.router.url;
+    this.router.navigateByUrl(lastUrlSegment + '/' + id + '/edit');
   }
 
   buildActions() {
@@ -73,7 +79,7 @@ export class TabProductsComponent {
         actions.push({
           label: 'Modifier',
           icon: 'pi pi-pencil',
-          command: () => {}
+          command: () => this.editProductRedirectionUrl(item.id)
         });
       }
 

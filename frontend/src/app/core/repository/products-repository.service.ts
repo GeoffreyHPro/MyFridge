@@ -20,8 +20,8 @@ export class ProductsRepositoryService {
     return this.httpClient.get<Product[]>(`${this.baseUrl}/product/all`, { withCredentials: true })
   }
 
-  getProductByEan(ean: string): Observable<Product> {
-    return this.httpClient.get<Product>(`${this.baseUrl}/product/${ean}`, { withCredentials: true })
+  getProductById(id: string): Observable<ProductDto> {
+    return this.httpClient.get<ProductDto>(`${this.baseUrl}/product/${id}`, { withCredentials: true })
   }
 
   /* ------------------ POST Endpoints ------------------------ */
@@ -108,7 +108,7 @@ export interface ProductDto {
   detail: string;
   calories: string;
   proteins: string;
-  carboHydrates: string;
+  carbohydrates: string;
   lipids: string;
   status: string;
 }

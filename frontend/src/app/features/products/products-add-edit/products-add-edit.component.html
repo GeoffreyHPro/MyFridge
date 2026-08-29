@@ -2,6 +2,6 @@
 
 <app-back-button></app-back-button>
 
-<app-products-form-add-edit (formProduct)="addProduct($event)"></app-products-form-add-edit>
+<app-products-form-add-edit [product]="product" (formProduct)="addProduct($event)"></app-products-form-add-edit>
 
 <p-toast></p-toast>
