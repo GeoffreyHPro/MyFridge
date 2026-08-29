@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.factory.ProductFactory;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,11 +22,15 @@ import com.example.demo.repository.ProductRepository;
 @Service
 public class ProductService {
 
+  private final ProductFactory productFactory;
   private ProductRepository productRepository;
 
-  ProductService(ProductRepository productRepository) {
+  ProductService(ProductRepository productRepository, ProductFactory productFactory) {
     this.productRepository = productRepository;
+    this.productFactory = productFactory;
   }
+
+  /* --------------- GET service ------------------------ */
 
   public Product getProduct(String ean) {
     return productRepository.findByEan(ean).orElseThrow(() -> new ProductNotFoundException());
@@ -44,6 +49,8 @@ public class ProductService {
     return productRepository.findAll();
   }
 
+  /* --------------- POST service ------------------------ */
+
   public Product addProduct(Product product) {
     Optional<Product> productFound = this.productRepository.findByEan(product.getEan());
 
@@ -60,9 +67,9 @@ public class ProductService {
 
   public Product addProduct(ProductCommand productCommand) {
     Optional<Product> productFound;
-    if(productCommand.ean() != null ){
+    if (productCommand.ean() != null) {
       productFound = this.productRepository.findByEan(productCommand.ean());
-    }else{
+    } else {
       productFound = this.productRepository.findByName(productCommand.name());
     }
 
@@ -73,15 +80,23 @@ public class ProductService {
     Product product = new Product(productCommand.ean(), productCommand.name(), productCommand.detail());
 
     Nutrition nutrition = new Nutrition(
-      productCommand.calories(), 
-      productCommand.proteins(),
-      productCommand.lipids(),
-      productCommand.carboHydrates(),
-      "PER_100G"
-    );
+        productCommand.calories(),
+        productCommand.proteins(),
+        productCommand.lipids(),
+        productCommand.carboHydrates(),
+        "PER_100G");
 
     nutrition.setProduct(product);
     product.setNutrition(nutrition);
+    productRepository.save(product);
+    return product;
+  }
+
+  /* --------------- PATCH/PUT service ------------------------ */
+
+  public Product updateProduct(String id, ProductCommand productCommand){
+    Product product = getProductById(id);
+    product = productFactory.apply(product, productCommand);
     productRepository.save(product);
     return product;
   }
@@ -108,10 +123,12 @@ public class ProductService {
     return product;
   }
 
-  public void deleteProduct(String id){
+  /* --------------- DELETE service ------------------------ */
+
+  public void deleteProduct(String id) {
     Optional<Product> product = productRepository.findById(id);
 
-    if(!product.isPresent()){
+    if (!product.isPresent()) {
       throw new ProductNotFoundException();
     }
 

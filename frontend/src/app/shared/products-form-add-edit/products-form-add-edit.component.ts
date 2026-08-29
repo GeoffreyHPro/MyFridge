@@ -53,8 +53,9 @@ export class ProductsFormAddEditComponent {
         proteins: this.product.proteins,
         carboHydrates: this.product.carbohydrates,
         lipids: this.product.lipids,
-      })
+      });
     }
+
   }
 
   getErrorMessage(field: string): string {
@@ -101,23 +102,19 @@ export class ProductsFormAddEditComponent {
   }
 
   hasChanges(): boolean {
-  if (!this.product) {
-    return true;
+    if (!this.product) {
+      return false;
+    } else {
+      const formValue = this.form.getRawValue();
+      return formValue.name !== this.product.name ||
+        formValue.detail !== this.product.detail ||
+        formValue.ean !== this.product.ean ||
+        formValue.calories !== this.product.calories ||
+        formValue.proteins !== this.product.proteins ||
+        formValue.carboHydrates !== this.product.carbohydrates ||
+        formValue.lipids !== this.product.lipids;
+    }
   }
-
-  const formValue = this.form.getRawValue();
-
-  return (
-    formValue.name !== this.product.name ||
-    formValue.detail !== this.product.detail ||
-    formValue.ean !== this.product.ean ||
-    Number(formValue.calories) !== Number(this.product.calories) ||
-    Number(formValue.proteins) !== Number(this.product.proteins) ||
-    Number(formValue.carboHydrates) !== Number(this.product.carbohydrates) ||
-    Number(formValue.lipids) !== Number(this.product.lipids) ||
-    formValue.status?.code !== this.product.status
-  );
-}
 
   onSubmit() {
     if (!this.form.valid) {

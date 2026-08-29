@@ -30,6 +30,12 @@ export class ProductsRepositoryService {
     return this.httpClient.post<void>(`${this.baseUrl}/product`, product, { withCredentials: true });
   }
 
+  /* ------------------ PUT/PATCH Endpoints ------------------------ */
+
+  updateProduct(id: string, product: ProductCommand): Observable<void> {
+    return this.httpClient.put<void>(`${this.baseUrl}/product/${id}`, product, { withCredentials: true });
+  }
+
   /* ------------------ DELETE Endpoints ------------------------ */
 
   deleteProduct(id: string): Observable<void> {
