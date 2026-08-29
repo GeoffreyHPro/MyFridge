@@ -1,3 +1,86 @@
-.meal {
-    padding: 1% 3%;
+/* ---------- Container ----------- */
+
+.container {
+    padding: 1% 4%;
+    margin: auto;
+    width: 85%;
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* --- Nutrition Day List side ---- */
+
+#nutrition-days {
+    flex: 1;
+    border: black 2px solid;
+    border-radius: 5px;
+    padding: 1%;
+}
+
+#nutrition-days a {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.add-new-nutrition-day {
+    padding: 1% 0 0 0;
+}
+
+/* -------- Preview side ------- */
+
+#nutrition-day-preview {
+    flex: 1;
+    border: black 2px dashed   ;
+    border-radius: 5px;
+    padding: 1%;
+}
+
+#nutrition-values>div:first-child {
+    margin-bottom: 3%;
+}
+
+.macros>div {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    margin-bottom: 1%;
+}
+
+#nutrition-values>div:not(first-child) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    margin-bottom: 1%;
+}
+
+#preview-footer {
+    text-align: end;
+    margin-top: 50px;
+    padding: 0 20px;
+}
+
+#preview-footer button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+/* -------- Mobile ------- */
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #nutrition-days,
+    #nutrition-day-preview {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 5%;
+    }
 }

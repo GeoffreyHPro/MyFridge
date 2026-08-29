@@ -1,12 +1,71 @@
 <app-navbar></app-navbar>
 
-<h2> </h2>
+<h2> Valeurs nutritionnelles de la journée </h2>
 
 @if (nutritionDay) {
-<div class="meal">
-    <h3> Valeurs nutritionnelles de la journée </h3>
-    <app-nutrition-day-meal-tab-add-edit-remove [itemHeaders]="totalItemHeaders"
-        [totalItems]="totalItemValues"></app-nutrition-day-meal-tab-add-edit-remove>
+
+<div id="knobs-container">
+
+    <div class="knob-item">
+        <form [formGroup]="formGroupKnobCalories">
+            <p-knob
+                [readonly]="true"
+                [size]="200"
+                [strokeWidth]="3"
+                [min]="0"
+                [max]="knobCaloriesMax"
+                [valueColor]="knobCaloriesColor"
+                formControlName="value"
+            />
+        </form>
+        <span class="knob-label">Calories</span>
+    </div>
+
+    <div class="knob-item">
+        <form [formGroup]="formGroupKnobProteins">
+            <p-knob
+                [readonly]="true"
+                [size]="200"
+                [strokeWidth]="3"
+                [min]="0"
+                [max]="knobProteinsMax"
+                [valueColor]="knobProteinsColor"
+                formControlName="value"
+            />
+        </form>
+        <span class="knob-label">Protéines</span>
+    </div>
+
+    <div class="knob-item">
+        <form [formGroup]="formGroupKnobCarbohydrates">
+            <p-knob
+                [readonly]="true"
+                [size]="200"
+                [strokeWidth]="3"
+                [min]="0"
+                [max]="knobCarbohydratesMax"
+                [valueColor]="knobCarbohydratesColor"
+                formControlName="value"
+            />
+        </form>
+        <span class="knob-label">Glucides</span>
+    </div>
+
+    <div class="knob-item">
+        <form [formGroup]="formGroupKnobLipids">
+            <p-knob
+                [readonly]="true"
+                [size]="200"
+                [strokeWidth]="3"
+                [min]="0"
+                [max]="knobLipidsMax"
+                [valueColor]="knobLipidsColor"
+                formControlName="value"
+            />
+        </form>
+        <span class="knob-label">Lipides</span>
+    </div>
+
 </div>
 
 @if (nutritionDay.breakfast) {
@@ -20,10 +79,10 @@
 
 @if (nutritionDay.morningSnack) {
 <div class="meal">
-    <h3> Petit Déjeuner </h3>
-    <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.breakfast.id" (refreshMeal)="refreshMeal()"
-        [products]="products" [itemHeaders]="itemHeaders" [items]="nutritionDay.breakfast.mealItems"
-        [totalItems]="['','', nutritionDay.breakfast.calories, nutritionDay.breakfast.proteins, nutritionDay.breakfast.carbohydrates, nutritionDay.breakfast.lipids]"></app-nutrition-day-meal-tab-add-edit-remove>
+    <h3> Collation du matin </h3>
+    <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.morningSnack.id" (refreshMeal)="refreshMeal()"
+        [products]="products" [itemHeaders]="itemHeaders" [items]="nutritionDay.morningSnack.mealItems"
+        [totalItems]="['','', nutritionDay.morningSnack.calories, nutritionDay.morningSnack.proteins, nutritionDay.morningSnack.carbohydrates, nutritionDay.morningSnack.lipids]"></app-nutrition-day-meal-tab-add-edit-remove>
 </div>
 }
 
