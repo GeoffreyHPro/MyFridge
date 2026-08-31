@@ -50,6 +50,10 @@ public class NutritionDay {
     public NutritionDay(User user) {
         this.user = user;
         this.breakfast = new Meal();
+        this.morningSnack = new Meal();
+        this.lunch = new Meal();
+        this.afternoonSnack = new Meal();
+        this.dinner = new Meal();
     }
 
     public Float getCalories() {

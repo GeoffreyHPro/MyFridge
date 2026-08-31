@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
+import { ProductDto } from '../../core/repository/products-repository.service';
 
 @Component({
   selector: 'app-products-form-add-edit',
@@ -18,6 +19,8 @@ import { MessagesModule } from 'primeng/messages';
   styleUrl: './products-form-add-edit.component.scss'
 })
 export class ProductsFormAddEditComponent {
+  @Input() product: ProductDto | undefined;
+
   @Output() formProduct = new EventEmitter<any>();
 
   form: FormGroup;
@@ -38,6 +41,21 @@ export class ProductsFormAddEditComponent {
       lipids: ['', [Validators.required, Validators.min(0)]],
       status: [this.status[0], [Validators.required]]
     });
+  }
+
+  ngOnChanges(): void {
+    if (this.product) {
+      this.form.patchValue({
+        name: this.product.name,
+        detail: this.product.detail,
+        ean: this.product.ean,
+        calories: this.product.calories,
+        proteins: this.product.proteins,
+        carboHydrates: this.product.carbohydrates,
+        lipids: this.product.lipids,
+      });
+    }
+
   }
 
   getErrorMessage(field: string): string {
@@ -81,6 +99,21 @@ export class ProductsFormAddEditComponent {
     });
 
     return result;
+  }
+
+  hasChanges(): boolean {
+    if (!this.product) {
+      return false;
+    } else {
+      const formValue = this.form.getRawValue();
+      return formValue.name !== this.product.name ||
+        formValue.detail !== this.product.detail ||
+        formValue.ean !== this.product.ean ||
+        formValue.calories !== this.product.calories ||
+        formValue.proteins !== this.product.proteins ||
+        formValue.carboHydrates !== this.product.carbohydrates ||
+        formValue.lipids !== this.product.lipids;
+    }
   }
 
   onSubmit() {

@@ -64,6 +64,7 @@ C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\dto
 C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\service\MealService.java
 C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\DemoApplication.java
 C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\configuration\JWTAuthFilter.java
+C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\factory\ProductFactory.java
 C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\controller\BatchController.java
 C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\dto\product\ProductLightDto.java
 C:\Users\geoff\Documents\git\MyFridge\backend\src\main\java\com\example\demo\model\Log.java

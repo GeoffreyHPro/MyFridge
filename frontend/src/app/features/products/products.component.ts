@@ -35,6 +35,14 @@ export class ProductsComponent {
       this.productsState = state;
       this.inputSearchName = state.name;
     });
+
+    this.productsStateSubscription.add(
+    this.productSearchService.search(
+      0,
+      this.productsState.rows,
+      this.productsState.name
+    )
+  );
   }
 
   onSearch(): void {

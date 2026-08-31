@@ -85,6 +85,15 @@ public class ProductController {
 
     @SecurityRequirement(name = "Authorization")
     @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT')")
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateProduct(@PathVariable String id,
+            @Valid @RequestBody ProductCommand productCommand) {
+        Product product = productService.updateProduct(id, productCommand);
+        return ResponseEntity.status(HttpStatus.OK).body(productConverter.applyRich(product));
+    }
+
+    @SecurityRequirement(name = "Authorization")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('AGENT')")
     @PutMapping("/{id}/nutrition")
     public ResponseEntity<Object> updateProduct(@PathVariable String id,
             @Valid @RequestBody NutritionCommand nutritionCommand) {

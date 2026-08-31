@@ -20,14 +20,20 @@ export class ProductsRepositoryService {
     return this.httpClient.get<Product[]>(`${this.baseUrl}/product/all`, { withCredentials: true })
   }
 
-  getProductByEan(ean: string): Observable<Product> {
-    return this.httpClient.get<Product>(`${this.baseUrl}/product/${ean}`, { withCredentials: true })
+  getProductById(id: string): Observable<ProductDto> {
+    return this.httpClient.get<ProductDto>(`${this.baseUrl}/product/${id}`, { withCredentials: true })
   }
 
   /* ------------------ POST Endpoints ------------------------ */
 
   addProduct(product: ProductCommand): Observable<void> {
     return this.httpClient.post<void>(`${this.baseUrl}/product`, product, { withCredentials: true });
+  }
+
+  /* ------------------ PUT/PATCH Endpoints ------------------------ */
+
+  updateProduct(id: string, product: ProductCommand): Observable<void> {
+    return this.httpClient.put<void>(`${this.baseUrl}/product/${id}`, product, { withCredentials: true });
   }
 
   /* ------------------ DELETE Endpoints ------------------------ */
@@ -108,7 +114,7 @@ export interface ProductDto {
   detail: string;
   calories: string;
   proteins: string;
-  carboHydrates: string;
+  carbohydrates: string;
   lipids: string;
   status: string;
 }

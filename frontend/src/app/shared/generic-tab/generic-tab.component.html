@@ -13,8 +13,8 @@
                 @for (header of itemHeaders; track $index) {
                     @if(header === ''){
                         <td>
-                            <p-menu #menu [model]="actionsMap.get(item.id)" [popup]="true"></p-menu>
-                            <button (click)="menu.toggle($event)"></button>
+                            <p-menu #menu [model]="actionsMap.get(item.id)" [popup]="true" appendTo="body"></p-menu>
+                            <p-button (click)="menu.toggle($event)">Action</p-button>
                         </td>
                     }@else {
                         <td>{{item[header]}}</td>
