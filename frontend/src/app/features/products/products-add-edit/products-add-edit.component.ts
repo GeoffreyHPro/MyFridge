@@ -41,12 +41,17 @@ export class ProductsAddEditComponent {
     }
   }
 
-  addProduct(event: ProductCommand): void {
-    console.log("event", event);
-    if(this.product){
+  addOrEditProduct(event: ProductCommand): void {
+    if (this.product) {
       this.updateProduct(event);
-    }else{
+    } else {
+      this.addProduct(event);
+    }
+  }
 
+  /* ------------------ PRIVATE Functions -------------------- */
+
+  private addProduct(event: ProductCommand): void {
     this.productsRepositoryService.addProduct(event).subscribe({
       next: () => {
         this.messageService.add({ severity: 'success', summary: 'Produit créé', detail: 'Le produit a bien été créé' });
@@ -60,21 +65,16 @@ export class ProductsAddEditComponent {
         }
       }
     });
-    }
   }
 
-  updateProduct(event: ProductCommand): void {
+  private updateProduct(event: ProductCommand): void {
     this.productsRepositoryService.updateProduct(this.product!.id, event).subscribe({
       next: () => {
         this.messageService.add({ severity: 'success', summary: 'Produit mise à jour', detail: 'Le produit a bien été mise à jour' });
         this.router.navigateByUrl('/products');
       },
       error: (error) => {
-        if (error.status === 409) {
-          this.messageService.add({ severity: 'error', summary: 'Produit déjà créé', detail: "Ce produit existe déjà" });
-        } else {
-          this.messageService.add({ severity: 'error', summary: 'Produit non créé', detail: "Le produit n'a pas été créé" });
-        }
+        console.log(error);
       }
     });
   }

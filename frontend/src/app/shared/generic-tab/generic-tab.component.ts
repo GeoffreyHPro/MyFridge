@@ -89,6 +89,7 @@ export class TabProductsComponent {
           icon: 'pi pi-trash',
           command: () => {
             this.productsRepositoryService.deleteProduct(item.id).subscribe({
+              next: () => this.lazyLoad.emit(),
               error: () => alert('Suppression impossible')
             });
           }
