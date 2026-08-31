@@ -8,107 +8,84 @@
 
     <div class="knob-item">
         <form [formGroup]="formGroupKnobCalories">
-            <p-knob
-                [readonly]="true"
-                [size]="200"
-                [strokeWidth]="3"
-                [min]="0"
-                [max]="knobCaloriesMax"
-                [valueColor]="knobCaloriesColor"
-                formControlName="value"
-            />
+            <p-knob [readonly]="true" [size]="200" [strokeWidth]="3" [min]="0" [max]="knobCaloriesMax"
+                [valueColor]="knobCaloriesColor" formControlName="value" />
         </form>
         <span class="knob-label">Calories</span>
     </div>
 
     <div class="knob-item">
         <form [formGroup]="formGroupKnobProteins">
-            <p-knob
-                [readonly]="true"
-                [size]="200"
-                [strokeWidth]="3"
-                [min]="0"
-                [max]="knobProteinsMax"
-                [valueColor]="knobProteinsColor"
-                formControlName="value"
-            />
+            <p-knob [readonly]="true" [size]="200" [strokeWidth]="3" [min]="0" [max]="knobProteinsMax"
+                [valueColor]="knobProteinsColor" formControlName="value" />
         </form>
         <span class="knob-label">Protéines</span>
     </div>
 
     <div class="knob-item">
         <form [formGroup]="formGroupKnobCarbohydrates">
-            <p-knob
-                [readonly]="true"
-                [size]="200"
-                [strokeWidth]="3"
-                [min]="0"
-                [max]="knobCarbohydratesMax"
-                [valueColor]="knobCarbohydratesColor"
-                formControlName="value"
-            />
+            <p-knob [readonly]="true" [size]="200" [strokeWidth]="3" [min]="0" [max]="knobCarbohydratesMax"
+                [valueColor]="knobCarbohydratesColor" formControlName="value" />
         </form>
         <span class="knob-label">Glucides</span>
     </div>
 
     <div class="knob-item">
         <form [formGroup]="formGroupKnobLipids">
-            <p-knob
-                [readonly]="true"
-                [size]="200"
-                [strokeWidth]="3"
-                [min]="0"
-                [max]="knobLipidsMax"
-                [valueColor]="knobLipidsColor"
-                formControlName="value"
-            />
+            <p-knob [readonly]="true" [size]="200" [strokeWidth]="3" [min]="0" [max]="knobLipidsMax"
+                [valueColor]="knobLipidsColor" formControlName="value" />
         </form>
         <span class="knob-label">Lipides</span>
     </div>
 
 </div>
 
-@if (nutritionDay.breakfast) {
+@if (nutritionDay.breakfast && userMacros) {
 <div class="meal">
     <h3> Petit Déjeuner </h3>
     <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.breakfast.id" (refreshMeal)="refreshMeal()"
-        [products]="products" [itemHeaders]="itemHeaders" [items]="nutritionDay.breakfast.mealItems"
+        [userMacros]="userMacros" [products]="products" [itemHeaders]="itemHeaders"
+        [items]="nutritionDay.breakfast.mealItems"
         [totalItems]="['','', nutritionDay.breakfast.calories, nutritionDay.breakfast.proteins, nutritionDay.breakfast.carbohydrates, nutritionDay.breakfast.lipids]"></app-nutrition-day-meal-tab-add-edit-remove>
 </div>
 }
 
-@if (nutritionDay.morningSnack) {
+@if (nutritionDay.morningSnack && userMacros) {
 <div class="meal">
     <h3> Collation du matin </h3>
     <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.morningSnack.id" (refreshMeal)="refreshMeal()"
-        [products]="products" [itemHeaders]="itemHeaders" [items]="nutritionDay.morningSnack.mealItems"
+        [userMacros]="userMacros" [products]="products" [itemHeaders]="itemHeaders"
+        [items]="nutritionDay.morningSnack.mealItems"
         [totalItems]="['','', nutritionDay.morningSnack.calories, nutritionDay.morningSnack.proteins, nutritionDay.morningSnack.carbohydrates, nutritionDay.morningSnack.lipids]"></app-nutrition-day-meal-tab-add-edit-remove>
 </div>
 }
 
-@if (nutritionDay.lunch) {
+@if (nutritionDay.lunch && userMacros) {
 <div class="meal">
     <h3> Déjeuner </h3>
     <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.lunch.id" (refreshMeal)="refreshMeal()"
-        [products]="products" [itemHeaders]="itemHeaders" [items]="nutritionDay.lunch.mealItems"
+        [userMacros]="userMacros" [products]="products" [itemHeaders]="itemHeaders"
+        [items]="nutritionDay.lunch.mealItems"
         [totalItems]="['','', nutritionDay.lunch.calories, nutritionDay.lunch.proteins, nutritionDay.lunch.carbohydrates, nutritionDay.lunch.lipids]"></app-nutrition-day-meal-tab-add-edit-remove>
 </div>
 }
 
-@if (nutritionDay.afternoonSnack) {
+@if (nutritionDay.afternoonSnack && userMacros) {
 <div class="meal">
     <h3> Gouter </h3>
     <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.afternoonSnack.id" (refreshMeal)="refreshMeal()"
-        [products]="products" [itemHeaders]="itemHeaders" [items]="nutritionDay.afternoonSnack.mealItems"
+        [userMacros]="userMacros" [products]="products" [itemHeaders]="itemHeaders"
+        [items]="nutritionDay.afternoonSnack.mealItems"
         [totalItems]="['','', nutritionDay.afternoonSnack.calories, nutritionDay.afternoonSnack.proteins, nutritionDay.afternoonSnack.carbohydrates, nutritionDay.afternoonSnack.lipids]"></app-nutrition-day-meal-tab-add-edit-remove>
 </div>
 }
 
-@if (nutritionDay.dinner) {
+@if (nutritionDay.dinner && userMacros) {
 <div class="meal">
     <h3> Dinner </h3>
     <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.dinner.id" (refreshMeal)="refreshMeal()"
-        [products]="products" [itemHeaders]="itemHeaders" [items]="nutritionDay.dinner.mealItems"
+        [userMacros]="userMacros" [products]="products" [itemHeaders]="itemHeaders"
+        [items]="nutritionDay.dinner.mealItems"
         [totalItems]="['','', nutritionDay.dinner.calories, nutritionDay.dinner.proteins, nutritionDay.dinner.carbohydrates, nutritionDay.dinner.lipids]"></app-nutrition-day-meal-tab-add-edit-remove>
 </div>
 }

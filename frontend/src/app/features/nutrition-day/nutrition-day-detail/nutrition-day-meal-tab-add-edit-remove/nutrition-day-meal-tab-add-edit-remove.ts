@@ -2,19 +2,21 @@ import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/
 import { TableModule } from "primeng/table";
 import { UpperCasePipe } from '@angular/common';
 import { MenuModule } from "primeng/menu";
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MealItemAddCommand, MealsRepositoryService } from '../../../../core/repository/meals-repository.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
+import { NutritionMacros } from '../../../../shared/nutrition-functions';
+import { KnobModule } from 'primeng/knob';
 
 @Component({
   selector: 'app-nutrition-day-meal-tab-add-edit-remove',
   standalone: true,
   providers: [ConfirmationService],
-  imports: [TableModule, UpperCasePipe, MenuModule, FormsModule, ButtonModule, InputTextModule, ConfirmDialogModule, DropdownModule],
+  imports: [TableModule, UpperCasePipe, MenuModule, FormsModule, ButtonModule, InputTextModule, ConfirmDialogModule, DropdownModule, KnobModule, ReactiveFormsModule],
   templateUrl: './nutrition-day-meal-tab-add-edit-remove.html',
   styleUrl: './nutrition-day-meal-tab-add-edit-remove.css'
 })
@@ -24,6 +26,7 @@ export class NutritionDayMealTabAddEditRemove {
   @Input() totalItems!: any[];
   @Input() id!: string;
   @Input() products: any[] = [];
+  @Input() userMacros!: NutritionMacros;
 
   availableProducts: any[] = [];
 
@@ -157,4 +160,8 @@ export class NutritionDayMealTabAddEditRemove {
   onProductChange(event: any): void {
     this.newProduct.productId = event.value.id;
   }
+
+  round(value: number): number {
+    return Math.round(value);
+}
 }

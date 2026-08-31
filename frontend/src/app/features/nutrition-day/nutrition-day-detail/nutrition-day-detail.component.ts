@@ -44,7 +44,7 @@ export class NutritionDayDetailComponent {
   knobCarbohydratesMax!: number;
   knobLipidsMax!: number;
 
-  userMacros: NutritionMacros | null = null;
+  userMacros!: NutritionMacros;
 
   constructor(
     private nutritionDaysRepositoryService: NutritionDaysRepositoryService,

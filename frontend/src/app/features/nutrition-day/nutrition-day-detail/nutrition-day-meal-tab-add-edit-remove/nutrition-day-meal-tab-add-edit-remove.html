@@ -10,6 +10,8 @@
                     </div>
                 </th>
                 }
+                <th></th>
+                
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
@@ -99,9 +101,33 @@
             }
 
             <tr>
-                @for (total of totalItems; track $index) {
-                <td>{{ total }}</td>
-                }
+
+                <td></td>
+                <td></td>
+                <td>
+                    <p-knob [readonly]="true" [size]="100" [strokeWidth]="2" [min]="0" [max]="userMacros.calories"
+                        [ngModel]="round(totalItems[2])">
+                    </p-knob>
+                </td>
+                <td>
+                    <p-knob [readonly]="true" [size]="100" [strokeWidth]="2" [min]="0" [max]="userMacros.proteins"
+                        [ngModel]="round(totalItems[3])">
+                    </p-knob>
+                </td>
+
+                <td>
+                    <p-knob [readonly]="true" [size]="100" [strokeWidth]="2" [min]="0" [max]="userMacros.carbohydrates"
+                        [ngModel]="round(totalItems[4])">
+                    </p-knob>
+                </td>
+
+                <td>
+                    <p-knob [readonly]="true" [size]="100" [strokeWidth]="2" [min]="0" [max]="userMacros.lipids"
+                        [ngModel]="round(totalItems[5])">
+                    </p-knob>
+                </td>
+                <td></td>
+                <td></td>
             </tr>
         </ng-template>
     </p-table>
