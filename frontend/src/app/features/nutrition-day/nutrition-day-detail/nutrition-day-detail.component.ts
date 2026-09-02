@@ -53,8 +53,8 @@ export class NutritionDayDetailComponent {
   ) { }
 
   ngOnInit(): void {
-    const calories = getCalories(getMetabolismForMen(70, 170, 28), ActivityFactor.SEDENTARY);
-    const macros = getMacros(calories);
+    const calories = getCalories(getMetabolismForMen(70, 170, 28), ActivityFactor.LIGHTLY_ACTIVE);
+    const macros = getMacros(calories, 70);
     this.userMacros = macros;
 
     this.id = this.route.snapshot.paramMap.get('id');

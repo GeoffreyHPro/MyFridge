@@ -12,13 +12,11 @@ export function getCalories(metabolism: number, activityFactor: ActivityFactor) 
     return metabolism * activityFactor;
 }
 
-export function getMacros(calories: number): NutritionMacros {
-    return {
-        calories: Math.round(calories),
-        proteins: Math.round((calories * 0.30) / 4),
-        carbohydrates: Math.round((calories * 0.40) / 4),
-        lipids: Math.round((calories * 0.30) / 9)
-    };
+export function getMacros(calories: number, weightKg: number): NutritionMacros {
+    const proteins = Math.round(2 * weightKg);
+    const lipids = Math.round(weightKg);
+    const carbohydrates = Math.round((calories - proteins * 4 - lipids * 9) / 4);
+    return { calories: Math.round(calories), proteins, carbohydrates, lipids };
 }
 
 export enum ActivityFactor {
