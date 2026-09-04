@@ -15,8 +15,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [ToolbarModule, MenubarModule, AvatarModule, MenuModule, Button, SidebarModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css',
-  encapsulation: ViewEncapsulation.None
+  styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
   @Output() logoutClicked = new EventEmitter<void>();

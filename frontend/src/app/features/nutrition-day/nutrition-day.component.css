@@ -16,11 +16,11 @@
     border: black 2px solid;
     border-radius: 5px;
     padding: 1%;
-}
 
-#nutrition-days a {
-    text-decoration: underline;
-    cursor: pointer;
+    a {
+        text-decoration: underline;
+        cursor: pointer;
+    }
 }
 
 .add-new-nutrition-day {
@@ -31,7 +31,7 @@
 
 #nutrition-day-preview {
     flex: 1;
-    border: black 2px dashed   ;
+    border: black 2px dashed;
     border-radius: 5px;
     padding: 1%;
 }
