@@ -1,26 +1,59 @@
-.form-default {
+.form-container {
     justify-content: center;
-    width: 80%;
     margin: auto;
-}
-
-.form-default {
-    max-width: 500px;
+    max-width: 60%;
     margin: 2rem auto;
     padding: 1rem;
+    background-color: white;
+    border: 1px solid black;
+    padding: 3rem;
+    border-radius: 2rem;
+
+
+    h1 {
+        text-align: center;
+        border-radius: 1rem;
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .label-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    #product-informations {
+        display: flex;
+        gap: 30px;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .form-row input {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        flex: 1;
+    }
+
+
+    #informations {
+        flex: 1;
+    }
+
+    #nutrition {
+        flex: 1;
+    }
+
+    .p-button {
+        background-color: var(--primary-green-light) !important;
+        border: none;
+    }
 }
 
-.form-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.form-row label {
-    width: 100px;
-    margin-right: 1rem;
-}
-
-.form-row input {
-    flex: 1;
+.input-error {
+    border: 2px solid red !important;
 }

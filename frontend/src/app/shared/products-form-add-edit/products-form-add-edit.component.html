@@ -1,102 +1,71 @@
-<div class="form-default">
+<div class="form-container">
+
+    @if(!product){
+    <h1>Ajouter un produit</h1>
+    }@else{
+    <h1>Modifier un produit</h1>
+    }
+
     <form [formGroup]="form" class="p-fluid">
 
-        <div class="form-row">
-            <label for="ean">EAN</label>
-            <input id="ean" type="text" pInputText formControlName="ean" />
+        <div id="product-informations">
+
+            <div id="informations">
+                <div class="form-row">
+                    <div class="label-container">
+                        <label for="ean">EAN</label>
+                    </div>
+
+                    <input id="ean" type="text" pInputText formControlName="ean" />
+                </div>
+
+                <div class="form-row">
+                    <div class="label-container">
+                        <label for="name">Nom *</label>
+                    </div>
+
+                    <input id="name" type="text" pInputText formControlName="name"
+                        [class.input-error]="form.get('name')?.invalid && form.get('name')?.touched" />
+                </div>
+
+                <div class="form-row">
+                    <label for="detail">Détail</label>
+                    <input id="detail" type="text" pInputText formControlName="detail" />
+                </div>
+            </div>
+
+            <div id="nutrition">
+                <div class="form-row">
+                    <label for="calories">Calories *</label>
+                    <input id="calories" type="number" pInputText formControlName="calories"
+                        [class.input-error]="form.get('calories')?.invalid && form.get('calories')?.touched" />
+                </div>
+
+                <div class="form-row">
+                    <label for="proteins">Protéines *</label>
+                    <input id="proteins" type="number" pInputText formControlName="proteins"
+                        [class.input-error]="form.get('proteins')?.invalid && form.get('proteins')?.touched" />
+                </div>
+
+                <div class="form-row">
+                    <label for="carboHydrates">Glucides *</label>
+                    <input id="carboHydrates" type="number" pInputText formControlName="carboHydrates"
+                        [class.input-error]="form.get('carboHydrates')?.invalid && form.get('carboHydrates')?.touched" />
+                </div>
+
+                <div class="form-row">
+                    <label for="lipids">Matières grasses *</label>
+                    <input id="lipids" type="number" pInputText formControlName="lipids"
+                        [class.input-error]="form.get('lipids')?.invalid && form.get('lipids')?.touched" />
+                </div>
+            </div>
+
         </div>
 
-        @if(getErrorMessage('ean')){
-            <div class="mb-3">
-                <p-message severity="error" [text]="getErrorMessage('ean')"></p-message>
-            </div>
-        }
 
         <div class="form-row">
-            <label for="name">Nom</label>
-            <input id="name" type="text" pInputText formControlName="name" />
-        </div>
-
-        @if(getErrorMessage('name')){
-            <div class="mb-3">
-                <p-message severity="error" [text]="getErrorMessage('name')"></p-message>
-            </div>
-        }
-
-        <div class="form-row">
-            <label for="detail">Détail</label>
-            <input id="detail" type="text" pInputText formControlName="detail" />
-        </div>
-
-        @if(getErrorMessage('detail')){
-            <div class="mb-3">
-                <p-message severity="error" [text]="getErrorMessage('detail')"></p-message>
-            </div>
-        }
-
-        <div class="form-row">
-            <label for="calories">Calories</label>
-            <input id="calories" type="number" pInputText formControlName="calories" />
-        </div>
-
-        @if(getErrorMessage('calories')){
-            <div class="mb-3">
-                <p-message severity="error" [text]="getErrorMessage('calories')"></p-message>
-            </div>
-        }
-
-        <div class="form-row">
-            <label for="proteins">Protéines</label>
-            <input id="proteins" type="number" pInputText formControlName="proteins" />
-        </div>
-
-        @if(getErrorMessage('proteins')){
-            <div class="mb-3">
-                <p-message severity="error" [text]="getErrorMessage('proteins')"></p-message>
-            </div>
-        }
-
-        <div class="form-row">
-            <label for="carboHydrates">Glucides</label>
-            <input id="carboHydrates" type="number" pInputText formControlName="carboHydrates" />
-        </div>
-
-        @if(getErrorMessage('carboHydrates')){
-            <div class="mb-3">
-                <p-message severity="error" [text]="getErrorMessage('carboHydrates')"></p-message>
-            </div>
-        }
-
-        <div class="form-row">
-            <label for="lipids">Matières grasses</label>
-            <input id="lipids" type="number" pInputText formControlName="lipids" />
-        </div>
-
-        @if(getErrorMessage('lipids')){
-            <div class="mb-3">
-                <p-message severity="error" [text]="getErrorMessage('lipids')"></p-message>
-            </div>
-        }
-
-        <div class="form-row">
-            <div class="form-row">
-                <label for="status">Status</label>
-                <p-dropdown [options]="status" optionLabel="name" placeholder="Sélectionnez un status"
-                    formControlName="status"></p-dropdown>
-            </div>
-        </div>
-
-        @if(getErrorMessage('status')){
-            <div class="mb-3">
-                <p-message severity="error" [text]="getErrorMessage('status')"></p-message>
-            </div>
-        }
-
-        <div class="form-row">
-            <button type="submit" pButton 
-                [label]="product ? 'Modifier' : 'Ajouter'" 
-                [disabled]="product ? !hasChanges() : false"
-                (click)="onSubmit()">
+            <button type="submit" pButton [label]="product ? 'Modifier' : 'Ajouter'"
+                [disabled]="product ? !hasChanges() : false" (click)="onSubmit()">
             </button>
         </div>
 
