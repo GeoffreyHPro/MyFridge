@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/
 import { TableModule } from "primeng/table";
 import { UpperCasePipe } from '@angular/common';
 import { MenuModule } from "primeng/menu";
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -11,12 +11,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { NutritionMacros } from '../../../../shared/nutrition-functions';
 import { KnobModule } from 'primeng/knob';
+import { NutritionKnobComponent } from "../../../../shared/nutrition-knob/nutrition-knob.component";
+import { isMobile as isMobileScreen } from '../../../../shared/global';
 
 @Component({
   selector: 'app-nutrition-day-meal-tab-add-edit-remove',
   standalone: true,
   providers: [ConfirmationService],
-  imports: [TableModule, UpperCasePipe, MenuModule, FormsModule, ButtonModule, InputTextModule, ConfirmDialogModule, DropdownModule, KnobModule, ReactiveFormsModule],
+  imports: [TableModule, UpperCasePipe, MenuModule, FormsModule, ButtonModule, InputTextModule, ConfirmDialogModule, DropdownModule, KnobModule, ReactiveFormsModule, NutritionKnobComponent],
   templateUrl: './nutrition-day-meal-tab-add-edit-remove.html',
   styleUrl: './nutrition-day-meal-tab-add-edit-remove.css'
 })
@@ -27,6 +29,7 @@ export class NutritionDayMealTabAddEditRemove {
   @Input() id!: string;
   @Input() products: any[] = [];
   @Input() userMacros!: NutritionMacros;
+  @Input() isMainMeal: boolean = false;
 
   availableProducts: any[] = [];
 
@@ -42,6 +45,26 @@ export class NutritionDayMealTabAddEditRemove {
     quantity: 1
   };
 
+
+  tabTitles: string[] = [
+    'Produit',
+    'Qté',
+    'Kcal',
+    'Prot.',
+    'Gluc.',
+    'Lip.'
+  ];
+
+  headers: (keyof NutritionMacros)[] = [
+    'calories',
+    'proteins',
+    'carbohydrates',
+    'lipids'
+  ];
+
+  size!: number;
+  isMobileView = false;
+
   constructor(
     private confirmationService: ConfirmationService,
     private mealsRepositoryService: MealsRepositoryService
@@ -49,6 +72,13 @@ export class NutritionDayMealTabAddEditRemove {
 
   ngOnInit(): void {
     this.resetNewRow();
+    this.isMobileView = isMobileScreen();
+
+    if (this.isMobileView) {
+      this.size = 50;
+    } else {
+      this.size = 150;
+    }
   }
 
   resetNewRow(): void {
@@ -95,6 +125,25 @@ export class NutritionDayMealTabAddEditRemove {
     this.editingItem = null;
     this.originalQuantity = null;
   }
+
+  colorFunction = (value: number, goal: number) => {
+    if (this.isMainMeal) {
+      const percentage = (value / goal) * 100;
+
+      if (percentage >= 25 && percentage <= 35) {
+        return "green";
+      }
+
+      if (percentage >= 20 && percentage <= 40) {
+        return "orange";
+      }
+
+      return "red"
+
+    } else {
+      return "grey";
+    }
+  };
 
   deleteItem(id: string, item: any): void {
     this.confirmationService.confirm({
@@ -163,5 +212,10 @@ export class NutritionDayMealTabAddEditRemove {
 
   round(value: number): number {
     return Math.round(value);
-}
+  }
+
+  ceil(value: number): number {
+    return Math.ceil(value);
+  }
+
 }

@@ -7,3 +7,70 @@
     background-color: rgb(33, 99, 33);
     color: white;
 }
+
+.footer > td {
+  padding: 20px 0;
+}
+
+:host ::ng-deep .p-datatable thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #ffffff;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+}
+
+.nutrition-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nutrition-item {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ------------- Mobile format ---------------- */
+
+@media (max-width: 600px) {
+    :host ::ng-deep .p-datatable {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    :host ::ng-deep .p-datatable table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    :host ::ng-deep .p-datatable th,
+    :host ::ng-deep .p-datatable td {
+        padding: 6px 3px;
+        text-align: center;
+        white-space: normal;
+        overflow-wrap: break-word;
+    }
+
+    /* Produit */
+    :host ::ng-deep .p-datatable th:first-child,
+    :host ::ng-deep .p-datatable td:first-child {
+        width: 30%;
+        text-align: left;
+    }
+
+    /* Quantité */
+    :host ::ng-deep .p-datatable th:nth-child(2),
+    :host ::ng-deep .p-datatable td:nth-child(2) {
+        width: 12%;
+    }
+
+    /* Kcal / Prot / Gluc / Lip */
+    :host ::ng-deep .p-datatable th:nth-child(n+3),
+    :host ::ng-deep .p-datatable td:nth-child(n+3) {
+        width: 11%;
+    }
+}

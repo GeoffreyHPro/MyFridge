@@ -2,6 +2,11 @@
     padding: 1% 3%;
 }
 
+#nutrition-day-container{
+    width: 80%;
+    margin: auto;
+}
+
 h2 {
     text-align: center;
     font-size: xx-large;
@@ -36,6 +41,10 @@ h2 {
 
 @media (max-width: 768px) {
 
+    #nutrition-day-container{
+        width: 100%;
+    }
+
     h2 {
         font-size: large;
         margin-bottom: 50px;
@@ -50,10 +59,5 @@ h2 {
 
     .knob-item {
         width: 100%;
-    }
-
-    :host ::ng-deep p-knob svg {
-        width: 100px !important;
-        height: 100px !important;
     }
 }

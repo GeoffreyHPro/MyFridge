@@ -1,52 +1,28 @@
 <app-navbar></app-navbar>
 
+<div id="nutrition-day-container">
+
 <h2> Valeurs nutritionnelles de la journée </h2>
 
 @if (nutritionDay) {
 
 <div id="knobs-container">
-
-    <div class="knob-item">
-        <form [formGroup]="formGroupKnobCalories">
-            <p-knob [readonly]="true" [size]="200" [strokeWidth]="3" [min]="0" [max]="knobCaloriesMax"
-                [valueColor]="knobCaloriesColor" formControlName="value" />
-        </form>
-        <span class="knob-label">Calories</span>
-    </div>
-
-    <div class="knob-item">
-        <form [formGroup]="formGroupKnobProteins">
-            <p-knob [readonly]="true" [size]="200" [strokeWidth]="3" [min]="0" [max]="knobProteinsMax"
-                [valueColor]="knobProteinsColor" formControlName="value" />
-        </form>
-        <span class="knob-label">Protéines</span>
-    </div>
-
-    <div class="knob-item">
-        <form [formGroup]="formGroupKnobCarbohydrates">
-            <p-knob [readonly]="true" [size]="200" [strokeWidth]="3" [min]="0" [max]="knobCarbohydratesMax"
-                [valueColor]="knobCarbohydratesColor" formControlName="value" />
-        </form>
-        <span class="knob-label">Glucides</span>
-    </div>
-
-    <div class="knob-item">
-        <form [formGroup]="formGroupKnobLipids">
-            <p-knob [readonly]="true" [size]="200" [strokeWidth]="3" [min]="0" [max]="knobLipidsMax"
-                [valueColor]="knobLipidsColor" formControlName="value" />
-        </form>
-        <span class="knob-label">Lipides</span>
-    </div>
-
+    @for (knob of knobs; track knob.key) {
+    <app-nutrition-knob [value]="knob.value" [max]="knob.max" [goal]="userMacros[knob.key]" [label]="knob.label" [size]="150"
+        [colorFunction]="getKnobColor" />
+    }
 </div>
 
 @if (nutritionDay.breakfast && userMacros) {
 <div class="meal">
     <h3> Petit Déjeuner </h3>
-    <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.breakfast.id" (refreshMeal)="refreshMeal()"
+    <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.breakfast.id"
+    [isMainMeal]="true"
+     (refreshMeal)="refreshMeal()"
         [userMacros]="userMacros" [products]="products" [itemHeaders]="itemHeaders"
         [items]="nutritionDay.breakfast.mealItems"
-        [totalItems]="['','', nutritionDay.breakfast.calories, nutritionDay.breakfast.proteins, nutritionDay.breakfast.carbohydrates, nutritionDay.breakfast.lipids]"></app-nutrition-day-meal-tab-add-edit-remove>
+        [totalItems]="['','', nutritionDay.breakfast.calories, nutritionDay.breakfast.proteins, nutritionDay.breakfast.carbohydrates, nutritionDay.breakfast.lipids]">
+    </app-nutrition-day-meal-tab-add-edit-remove>
 </div>
 }
 
@@ -63,7 +39,9 @@
 @if (nutritionDay.lunch && userMacros) {
 <div class="meal">
     <h3> Déjeuner </h3>
-    <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.lunch.id" (refreshMeal)="refreshMeal()"
+    <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.lunch.id"
+    [isMainMeal]="true"
+     (refreshMeal)="refreshMeal()"
         [userMacros]="userMacros" [products]="products" [itemHeaders]="itemHeaders"
         [items]="nutritionDay.lunch.mealItems"
         [totalItems]="['','', nutritionDay.lunch.calories, nutritionDay.lunch.proteins, nutritionDay.lunch.carbohydrates, nutritionDay.lunch.lipids]"></app-nutrition-day-meal-tab-add-edit-remove>
@@ -83,10 +61,14 @@
 @if (nutritionDay.dinner && userMacros) {
 <div class="meal">
     <h3> Dinner </h3>
-    <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.dinner.id" (refreshMeal)="refreshMeal()"
+    <app-nutrition-day-meal-tab-add-edit-remove [id]="nutritionDay.dinner.id"
+    [isMainMeal]="true"
+     (refreshMeal)="refreshMeal()"
         [userMacros]="userMacros" [products]="products" [itemHeaders]="itemHeaders"
         [items]="nutritionDay.dinner.mealItems"
         [totalItems]="['','', nutritionDay.dinner.calories, nutritionDay.dinner.proteins, nutritionDay.dinner.carbohydrates, nutritionDay.dinner.lipids]"></app-nutrition-day-meal-tab-add-edit-remove>
 </div>
 }
 }
+
+</div>
