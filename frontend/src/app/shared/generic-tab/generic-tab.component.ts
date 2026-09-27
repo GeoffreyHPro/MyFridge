@@ -89,7 +89,7 @@ export class TabProductsComponent {
           icon: 'pi pi-trash',
           command: () => {
             this.productsRepositoryService.deleteProduct(item.id).subscribe({
-              next: () => this.lazyLoad.emit(),
+              next: () => this.lazyLoad.emit({first: this.first, rows: this.rows} as TableLazyLoadEvent),
               error: () => alert('Suppression impossible')
             });
           }
