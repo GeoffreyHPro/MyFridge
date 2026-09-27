@@ -14,7 +14,7 @@
                     @if(header === ''){
                         <td>
                             <p-menu #menu [model]="actionsMap.get(item.id)" [popup]="true" appendTo="body"></p-menu>
-                            <p-button (click)="menu.toggle($event)">Action</p-button>
+                            <p-button class="actions-button" (click)="menu.toggle($event)" icon="pi pi-ellipsis-v"></p-button>
                         </td>
                     }@else {
                         <td>{{item[header]}}</td>

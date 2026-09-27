@@ -30,3 +30,17 @@ hr {
     width: 90%;
   }
 }
+
+.actions-button {
+    .p-button {
+        background: var(--primary-green);
+        border-color: var(--primary-green);
+        color: white;
+    }
+
+    .p-button:hover {
+        background: #2f7d52;
+        border-color: #2f7d52;
+        color: white;
+    }
+}
