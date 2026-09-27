@@ -7,6 +7,7 @@ import { ProductSearchService, ProductsFilterSearch } from '../../core/product-s
 import { Subscription } from 'rxjs';
 import { UserService } from '../../core/user.service';
 import { Router } from '@angular/router';
+import { TableLazyLoadEvent } from 'primeng/table';
 
 @Component({
   selector: 'app-products',
@@ -46,13 +47,9 @@ export class ProductsComponent {
   }
 
   onSearch(): void {
-    if (this.isActualSearch(event)) {
-      return;
-    }
-
     this.productSearchService.search(
       0,
-      this.productsState?.rows,
+      this.productsState?.rows ?? 5,
       this.inputSearchName
     );
   }
@@ -64,14 +61,17 @@ export class ProductsComponent {
     return isCurrentSearch && isData;
   }
 
-  loadProductsLazy(event: any) {
+  /**
+   * Load and reload products table
+   * @param event TableLazyLoadEvent
+   */
+  loadProductsLazy(event: TableLazyLoadEvent) {
     if (!event) return;
 
-    if (this.isActualSearch(event)) {
-      return;
-    }
+    const page = Math.floor((event.first ?? 0) / (event.rows ?? this.productsState?.rows ?? 5));
+    const rows = event.rows ?? this.productsState?.rows ?? 5;
 
-    this.productSearchService.search(event.first / event.rows, event.rows, this.inputSearchName);
+    this.productSearchService.search(page, rows, this.inputSearchName);
   }
 
   redirectToProductAdd(): void {
