@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from "primeng/toast";
-import { AUTHORS, TITLE } from '../../shared/constants';
+import { AUTHORS, TITLE } from '../../shared/global';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { Router } from '@angular/router';

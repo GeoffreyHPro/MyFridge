@@ -1,17 +1,17 @@
-<div class="card">
+<div id="nutrition-table">
     <p-table [value]="items">
         <ng-template pTemplate="header">
             <tr>
-                @for (header of itemHeaders; track $index) {
+                @for (header of itemHeaders; track header; let i = $index) {
                 <th pSortableColumn="{{header}}">
                     <div class="flex items-center gap-2">
-                        {{header | uppercase }}
+                        {{ isMobileView ? tabTitles[i].charAt(0) : tabTitles[i] }}
                         <p-sortIcon field="{{header}}" />
                     </div>
                 </th>
                 }
                 <th></th>
-                
+
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
@@ -23,7 +23,11 @@
                     @if (header === 'quantity' && editingItem === item) {
                     <input pInputText type="number" [(ngModel)]="item.quantity" min="0" />
                     } @else {
-                    {{ item[header] }}
+                        @if(header !== 'name'){
+                            {{ ceil(item[header]) }}
+                    }@else{
+                        {{ item[header] }}
+                    }
                     }
                 </td>
 
@@ -100,35 +104,22 @@
             }
             }
 
-            <tr>
-
-                <td></td>
-                <td></td>
-                <td>
-                    <p-knob [readonly]="true" [size]="100" [strokeWidth]="2" [min]="0" [max]="userMacros.calories"
-                        [ngModel]="round(totalItems[2])">
-                    </p-knob>
+            @if(items.length > 0){
+            <tr class="footer">
+                <td [attr.colspan]="itemHeaders.length + 2">
+                    <div class="nutrition-footer">
+                        @for (item of headers; track $index) {
+                        <div class="nutrition-item">
+                            <app-nutrition-knob [value]="round(totalItems[$index + 2])" [goal]="userMacros[item]"
+                                [label]="item" [max]="userMacros[item]" [strokeWidth]="2" [size]="size"
+                                [colorFunction]="colorFunction">
+                            </app-nutrition-knob>
+                        </div>
+                        }
+                    </div>
                 </td>
-                <td>
-                    <p-knob [readonly]="true" [size]="100" [strokeWidth]="2" [min]="0" [max]="userMacros.proteins"
-                        [ngModel]="round(totalItems[3])">
-                    </p-knob>
-                </td>
-
-                <td>
-                    <p-knob [readonly]="true" [size]="100" [strokeWidth]="2" [min]="0" [max]="userMacros.carbohydrates"
-                        [ngModel]="round(totalItems[4])">
-                    </p-knob>
-                </td>
-
-                <td>
-                    <p-knob [readonly]="true" [size]="100" [strokeWidth]="2" [min]="0" [max]="userMacros.lipids"
-                        [ngModel]="round(totalItems[5])">
-                    </p-knob>
-                </td>
-                <td></td>
-                <td></td>
             </tr>
+            }
         </ng-template>
     </p-table>
 </div>

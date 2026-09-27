@@ -8,13 +8,14 @@ import { NutritionDayMealTabAddEditRemove } from "./nutrition-day-meal-tab-add-e
 import { Button } from "primeng/button";
 import { ChartModule } from 'primeng/chart';
 import { KnobModule } from 'primeng/knob';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { getCalories, getMetabolismForMen, ActivityFactor, getMacros, NutritionMacros } from '../../../shared/nutrition-functions';
+import { NutritionKnobComponent } from "../../../shared/nutrition-knob/nutrition-knob.component";
 
 @Component({
   selector: 'app-nutrition-day',
   standalone: true,
-  imports: [NavbarComponent, TableModule, NutritionDayMealTabAddEditRemove, Button, ChartModule, KnobModule, ReactiveFormsModule],
+  imports: [NavbarComponent, TableModule, NutritionDayMealTabAddEditRemove, Button, ChartModule, KnobModule, ReactiveFormsModule, FormsModule, NutritionKnobComponent],
   templateUrl: './nutrition-day-detail.component.html',
   styleUrl: './nutrition-day-detail.component.css'
 })
@@ -29,22 +30,9 @@ export class NutritionDayDetailComponent {
 
   products: Product[] = []
 
-  formGroupKnobCalories!: FormGroup;
-  formGroupKnobProteins!: FormGroup;
-  formGroupKnobCarbohydrates!: FormGroup;
-  formGroupKnobLipids!: FormGroup;
-
-  knobCaloriesColor!: string;
-  knobProteinsColor!: string;
-  knobCarbohydratesColor!: string;
-  knobLipidsColor!: string;
-
-  knobCaloriesMax!: number;
-  knobProteinsMax!: number;
-  knobCarbohydratesMax!: number;
-  knobLipidsMax!: number;
-
   userMacros!: NutritionMacros;
+
+  knobs: Knob[] = [];
 
   constructor(
     private nutritionDaysRepositoryService: NutritionDaysRepositoryService,
@@ -53,8 +41,8 @@ export class NutritionDayDetailComponent {
   ) { }
 
   ngOnInit(): void {
-    const calories = getCalories(getMetabolismForMen(70, 170, 28), ActivityFactor.LIGHTLY_ACTIVE);
-    const macros = getMacros(calories, 70);
+    const calories = getCalories(getMetabolismForMen(69, 170, 28), ActivityFactor.SEDENTARY);
+    const macros = getMacros(calories, 69);
     this.userMacros = macros;
 
     this.id = this.route.snapshot.paramMap.get('id');
@@ -82,86 +70,56 @@ export class NutritionDayDetailComponent {
       return;
     }
 
-    // =========================
-    // CALORIES
-    // =========================
+    const macros: {
+      key: keyof NutritionMacros;
+      label: string;
+    }[] = [
+        {
+          key: 'calories',
+          label: 'Calories'
+        },
+        {
+          key: 'proteins',
+          label: 'Protéines'
+        },
+        {
+          key: 'carbohydrates',
+          label: 'Glucides'
+        },
+        {
+          key: 'lipids',
+          label: 'Lipides'
+        }
+      ];
 
-    const calories = this.nutritionDay.calories;
-    const caloriesGoal = this.userMacros.calories;
-    const caloriesRate = calories / caloriesGoal;
+    this.knobs = macros.map(({ key, label }) => {
+      const value = this.nutritionDay[key];
+      const goal = this.userMacros[key];
 
-    this.knobCaloriesColor = this.getKnobColor(caloriesRate, 'calories');
-    this.knobCaloriesMax = this.getKnobMax(calories, caloriesGoal);
-
-    this.formGroupKnobCalories = new FormGroup({
-      value: new FormControl(Math.round(calories))
-    });
-
-
-    // =========================
-    // PROTÉINES
-    // =========================
-
-    const proteins = this.nutritionDay.proteins;
-    const proteinsGoal = this.userMacros.proteins;
-    const proteinsRate = proteins / proteinsGoal;
-
-    this.knobProteinsColor = this.getKnobColor(proteinsRate, 'proteins');
-    this.knobProteinsMax = this.getKnobMax(proteins, proteinsGoal);
-
-    this.formGroupKnobProteins = new FormGroup({
-      value: new FormControl(Math.round(proteins))
-    });
-
-
-    // =========================
-    // GLUCIDES
-    // =========================
-
-    const carbohydrates = this.nutritionDay.carbohydrates;
-    const carbohydratesGoal = this.userMacros.carbohydrates;
-    const carbohydratesRate =
-      carbohydrates / carbohydratesGoal;
-
-    this.knobCarbohydratesColor =
-      this.getKnobColor(carbohydratesRate, "carbohydrates");
-
-    this.knobCarbohydratesMax =
-      this.getKnobMax(carbohydrates, carbohydratesGoal);
-
-    this.formGroupKnobCarbohydrates = new FormGroup({
-      value: new FormControl(Math.round(carbohydrates))
-    });
-
-
-    // =========================
-    // LIPIDES
-    // =========================
-
-    const lipids = this.nutritionDay.lipids;
-    const lipidsGoal = this.userMacros.lipids;
-    const lipidsRate = lipids / lipidsGoal;
-
-    this.knobLipidsColor = this.getKnobColor(lipidsRate, 'lipids');
-    this.knobLipidsMax = this.getKnobMax(lipids, lipidsGoal);
-
-    this.formGroupKnobLipids = new FormGroup({
-      value: new FormControl(Math.round(lipids))
+      return {
+        key,
+        label,
+        value: Math.round(value),
+        max: this.getKnobMax(value, goal)
+      };
     });
   }
 
 
-  private getKnobColor(rate: number, macro: string): string {
+  getKnobColor(value: number, goal: number, label: string): string {
+    const rate = value / goal;
+
     if (rate > 1.1) {
       return 'red';
     }
 
     if (rate > 1) {
-      if (macro !== 'proteins') {
-        return 'orange';
-      } else {
+      // Les protéines au-dessus de l'objectif restent vertes
+      if (label === 'Protéines') {
         return 'green';
       }
+
+      return 'orange';
     }
 
     if (rate > 0.75) {
@@ -175,11 +133,19 @@ export class NutritionDayDetailComponent {
     return 'red';
   }
 
-  private getKnobMax(value: number, goal: number): number {
+  getKnobMax(value: number, goal: number): number {
     if (value > goal) {
       return Math.round(value);
     }
 
     return goal;
   }
+
+}
+
+interface Knob {
+  key: keyof NutritionMacros;
+  label: string;
+  value: number;
+  max: number;
 }
