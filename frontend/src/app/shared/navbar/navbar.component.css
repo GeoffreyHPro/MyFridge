@@ -8,10 +8,6 @@
     border: 1px solid black;
 }
 
-.p-button {
-    background-color: var(--primary-green-light) !important;
-    border: none;
-}
 
 @media (max-width: 768px) {
     .p-menubar-root-list {

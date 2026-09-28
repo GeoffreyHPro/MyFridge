@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.time.LocalDate;
 import java.util.UUID;
 import java.util.function.Function;
 
@@ -24,6 +25,9 @@ public class NutritionDay {
     @NotNull
     private String id;
 
+    @NotNull
+    private LocalDate date;
+
     @OneToOne(cascade = CascadeType.ALL)
     private Meal breakfast;
 
@@ -47,8 +51,9 @@ public class NutritionDay {
         this.id = UUID.randomUUID().toString();
     }
 
-    public NutritionDay(User user) {
+    public NutritionDay(User user, LocalDate date) {
         this.user = user;
+        this.date = date;
         this.breakfast = new Meal();
         this.morningSnack = new Meal();
         this.lunch = new Meal();
