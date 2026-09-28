@@ -1,1 +1,29 @@
+# Java / Maven
 /backend/target/
+*.class
+
+# Angular / Node.js
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.angular/
+/frontend/coverage/
+
+# Logs
+*.log
+
+# Fichiers locaux et secrets
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Système
+.DS_Store
+Thumbs.db
+desktop.ini
