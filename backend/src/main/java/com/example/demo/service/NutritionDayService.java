@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.repository.NutritionRepository;
-
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,30 +17,22 @@ import com.example.demo.repository.NutritionDayRepository;
 @Service
 public class NutritionDayService {
 
-    private NutritionRepository nutritionRepository;
-
     private NutritionDayRepository nutritionDayRepository;
 
     private NutritionDayConverter nutritionDayConverter;
 
     public NutritionDayService(
             NutritionDayRepository nutritionDayRepository,
-            NutritionRepository nutritionRepository,
-            NutritionDayConverter nutritionDayConverter
-    ) {
+            NutritionDayConverter nutritionDayConverter) {
         this.nutritionDayRepository = nutritionDayRepository;
-        this.nutritionRepository = nutritionRepository;
         this.nutritionDayConverter = nutritionDayConverter;
     }
 
-    public void createNutritionDay(User user) {
-        NutritionDay nutritionDay = new NutritionDay(user);
-        nutritionDayRepository.save(nutritionDay);
-    }
+    /* ------------------- GET --------------------------- */
 
     public List<NutritionDayLightDto> getNutritionDaysByUser(User user) {
         List<NutritionDay> nutritionDays = nutritionDayRepository.findNutritionDaysByUser(user);
-        
+
         return nutritionDays.stream().map(nutritionDay -> nutritionDayConverter.applyLight(nutritionDay)).toList();
     }
 
@@ -53,6 +44,24 @@ public class NutritionDayService {
         }
 
         return nutritionDayConverter.applyRich(nutritionDay.get());
+    }
+
+    public NutritionDayRichDto getNutritionDaysByUserAndDate(User user, LocalDate date) {
+        Optional<NutritionDay> nutritionDay = nutritionDayRepository.findNutritionDaysByUserAndDate(user, date);
+
+        if (!nutritionDay.isPresent()) {
+            return null;
+        }
+
+        return nutritionDayConverter.applyRich(nutritionDay.get());
+    }
+
+    /* ------------------- Create --------------------------- */
+
+    public NutritionDayRichDto createNutritionDay(User user, LocalDate date) {
+        NutritionDay nutritionDay = new NutritionDay(user, date);
+        nutritionDayRepository.save(nutritionDay);
+        return nutritionDayConverter.applyRich(nutritionDay);
     }
 
 }

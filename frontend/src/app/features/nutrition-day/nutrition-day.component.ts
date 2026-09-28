@@ -1,23 +1,24 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from "../../shared/navbar/navbar.component";
 import { TableModule } from "primeng/table";
-import { NutritionDayLightDto, NutritionDayRichDto } from '../../core/repository/products-repository.service';
+import { NutritionDayRichDto } from '../../core/repository/products-repository.service';
 import { Router, RouterLink } from '@angular/router';
 import { NutritionDaysRepositoryService } from '../../core/repository/nutrition-days-repository.service';
 import { Button } from "primeng/button";
-import { NutritionDayMealTabAddEditRemove } from './nutrition-day-detail/nutrition-day-meal-tab-add-edit-remove/nutrition-day-meal-tab-add-edit-remove';
+import { CalendarModule } from 'primeng/calendar';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-nutrition-day',
   standalone: true,
-  imports: [NavbarComponent, TableModule, RouterLink, Button],
+  imports: [NavbarComponent, TableModule, RouterLink, Button, CalendarModule, FormsModule],
   templateUrl: './nutrition-day.component.html',
-  styleUrl: './nutrition-day.component.css'
+  styleUrl: './nutrition-day.component.scss'
 })
 export class NutritionDayComponent {
   id: string | null = "";
 
-  nutritionDays: NutritionDayLightDto[] = [];
+  nutritionDay: NutritionDayRichDto | null = null;
   itemHeaders = ['name', 'quantity', 'calories', 'proteins', 'carbohydrates', 'lipids'];
 
   totalItemHeaders = ['calories', 'proteins', 'carbohydrates', 'lipids'];
@@ -26,21 +27,51 @@ export class NutritionDayComponent {
   selectedNutritionDayId: string = "";
   currentNutritionDay: NutritionDayRichDto | null = null;
 
+  selectedDate: Date | null = null;
+
   constructor(
     private nutritionDaysRepositoryService: NutritionDaysRepositoryService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+  }
 
-    this.nutritionDaysRepositoryService.getNutritionDays().subscribe(nutritionDays => {
-      this.nutritionDays = nutritionDays;
+  onDateSelect(): void {
+    this.filterByDate();
+  }
+
+  private filterByDate(): void {
+  if (!this.selectedDate) {
+    this.currentNutritionDay = null;
+    return;
+  }
+
+  const selected = this.formatDate(this.selectedDate);
+
+
+  this.nutritionDaysRepositoryService
+    .getNutritionDaysByDate(selected)
+    .subscribe(nutritionDay => {
+      this.nutritionDay = nutritionDay;
+      this.currentNutritionDay = nutritionDay;
     });
+}
+
+  private formatDate(date: Date): string {
+    const offset = date.getTimezoneOffset();
+    const local = new Date(date.getTime() - offset * 60000);
+    return local.toISOString().slice(0, 10);
   }
 
   addNutritionDay(): void {
-    this.nutritionDaysRepositoryService.addNutritionDay().subscribe(nutritionDays => {
-      this.nutritionDays = nutritionDays;
+    if (!this.selectedDate) {
+      return;
+    }
+
+    const date = this.formatDate(this.selectedDate);
+    this.nutritionDaysRepositoryService.addNutritionDay(date).subscribe(nutritionDay => {
+      this.currentNutritionDay = nutritionDay;
     });
   }
 

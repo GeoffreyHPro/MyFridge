@@ -1,3 +1,5 @@
+@import './../../../assets/styles/variables.scss';
+
 /* ---------- Container ----------- */
 
 .container {
@@ -13,7 +15,7 @@
 
 #nutrition-days {
     flex: 1;
-    border: black 2px solid;
+    border: var(--primary-green-light) 2px solid;
     border-radius: 5px;
     padding: 1%;
 
@@ -31,7 +33,7 @@
 
 #nutrition-day-preview {
     flex: 1;
-    border: black 2px dashed;
+    border: var(--primary-green-light) 2px dashed;
     border-radius: 5px;
     padding: 1%;
 }

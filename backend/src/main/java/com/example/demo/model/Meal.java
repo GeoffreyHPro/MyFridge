@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,7 +25,7 @@ public class Meal {
     private String id;
 
     @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MealItem> mealItems;
+    private List<MealItem> mealItems = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {

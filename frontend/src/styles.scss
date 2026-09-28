@@ -32,15 +32,54 @@ hr {
 }
 
 .actions-button {
-    .p-button {
-        background: var(--primary-green);
-        border-color: var(--primary-green);
-        color: white;
-    }
+  .p-button {
+    background: var(--primary-green);
+    border-color: var(--primary-green);
+    color: white;
+  }
 
-    .p-button:hover {
-        background: #2f7d52;
-        border-color: #2f7d52;
-        color: white;
-    }
+  .p-button:hover {
+    background: #2f7d52;
+    border-color: #2f7d52;
+    color: white;
+  }
+}
+
+/*----------------------Generic PrimeNg Component-------------------*/
+
+/*----------Button-----------*/
+p-button.generic-button .p-button {
+  background: var(--primary-green);
+  border-color: var(--primary-green);
+  color: white;
+}
+
+
+/*----------Calendar-----------*/
+.calendar-block .p-datepicker {
+  border-color: var(--primary-green-light);
+}
+
+.calendar-block .p-datepicker-header {
+  background: var(--primary-green);
+  border-color: var(--primary-green);
+}
+
+.calendar-block .p-datepicker-header button,
+.calendar-block .p-datepicker-title {
+  color: white;
+}
+
+.calendar-block .p-datepicker-calendar td>span.p-highlight {
+  background: var(--primary-green);
+  color: white;
+}
+
+.calendar-block .p-datepicker-calendar td.p-datepicker-today>span {
+  border-color: var(--primary-green-light);
+}
+
+.calendar-block .p-datepicker-calendar td>span:not(.p-highlight):not(.p-disabled):hover {
+  background: var(--primary-green-transparent);
+  color: var(--primary-green);
 }
