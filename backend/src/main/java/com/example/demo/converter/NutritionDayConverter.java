@@ -16,15 +16,14 @@ public class NutritionDayConverter {
     }
 
     public NutritionDayLightDto applyLight(NutritionDay nutritionDay){
-        NutritionDayLightDto nutritionDayLightDto = new NutritionDayLightDto(
-            nutritionDay.getId()
+        return new NutritionDayLightDto(
+            nutritionDay.getId(),
+            nutritionDay.getDate()
         );
-
-        return nutritionDayLightDto;
     }
 
     public NutritionDayRichDto applyRich(NutritionDay nutritionDay){
-        NutritionDayRichDto nutritionDayRichDto = new NutritionDayRichDto(
+        return new NutritionDayRichDto(
             nutritionDay.getId(),
             nutritionDay.getBreakfast() == null ? null : mealConverter.applyRich(nutritionDay.getBreakfast()),
             nutritionDay.getMorningSnack() == null ? null : mealConverter.applyRich(nutritionDay.getMorningSnack()),
@@ -36,7 +35,5 @@ public class NutritionDayConverter {
             nutritionDay.getCarbohydrates(),
             nutritionDay.getLipids()
         );
-
-        return nutritionDayRichDto;
     }
 }

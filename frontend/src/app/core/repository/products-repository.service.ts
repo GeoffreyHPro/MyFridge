@@ -81,7 +81,8 @@ export interface MealRichDto {
 }
 
 export interface NutritionDayLightDto {
-  id: string
+  id: string;
+  date: string;
 }
 
 export interface NutritionDayRichDto {
