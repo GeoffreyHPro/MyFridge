@@ -29,7 +29,6 @@ public class User implements UserDetails {
 
     private String role;
 
-
     public User(String pseudo, String password) {
         this.id = UUID.randomUUID().toString();
         this.pseudo = pseudo;
@@ -40,6 +39,10 @@ public class User implements UserDetails {
     public User(String pseudo, String password, String role) {
         this(pseudo, password);
         this.role = role;
+    }
+
+    public String getId() {
+        return id;
     }
 
     @Override

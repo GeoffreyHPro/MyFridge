@@ -14,6 +14,9 @@ import com.example.demo.model.NutritionDay;
 import com.example.demo.model.User;
 import com.example.demo.repository.NutritionDayRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class NutritionDayService {
 
@@ -50,17 +53,29 @@ public class NutritionDayService {
         Optional<NutritionDay> nutritionDay = nutritionDayRepository.findNutritionDaysByUserAndDate(user, date);
 
         if (!nutritionDay.isPresent()) {
+            log.info("Nutrition day not found for userId = {} and date = {}", user.getId(), date);
             return null;
         }
 
+        log.debug("Nutrition day found for userId={} and date={}", user.getId(), date);
         return nutritionDayConverter.applyRich(nutritionDay.get());
     }
 
     /* ------------------- Create --------------------------- */
 
+    /**
+     * Function to create new daily nutrition
+     * 
+     * @param user User : current user
+     * @param date LocalDate : date of daily nutrition
+     * @return daily nutrition from user in the date given
+     */
     public NutritionDayRichDto createNutritionDay(User user, LocalDate date) {
         NutritionDay nutritionDay = new NutritionDay(user, date);
         nutritionDayRepository.save(nutritionDay);
+
+        log.info("Nutrition day created for userId={} and date={}", user.getId(), date);
+
         return nutritionDayConverter.applyRich(nutritionDay);
     }
 
