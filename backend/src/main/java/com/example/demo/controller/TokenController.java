@@ -37,6 +37,20 @@ public class TokenController {
         this.userService = userService;
     }
 
+    /* ------------------- GET --------------------------- */
+
+    @GetMapping("/refresh")
+    @SecurityRequirement(name = "Authorization")
+    public ResponseEntity<Void> getCurrentUser(@CookieValue(name = "authToken", required = false) String token) {
+        if (token == null || jwtUtils.isTokenExpired(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    /* ------------------- POST --------------------------- */
+
     @Operation(summary = "Get token of account", description = "You get the token with your pseudo and password")
     @PostMapping
     public ResponseEntity<TokenDto> authenticationUser(@RequestBody UserCommand userCommand,
@@ -58,6 +72,8 @@ public class TokenController {
         return ResponseEntity.status(200).body(tokenDto);
     }
 
+    /* ------------------- DELETE --------------------------- */
+
     @Operation(summary = "Get token of account", description = "You get the token with your pseudo and password")
     @DeleteMapping
     public ResponseEntity<Void> logout(HttpServletResponse response) {
@@ -74,13 +90,4 @@ public class TokenController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @GetMapping("/refresh")
-    @SecurityRequirement(name = "Authorization")
-    public ResponseEntity<Void> getCurrentUser(@CookieValue(name = "authToken", required = false) String token) {
-        if (token == null || jwtUtils.isTokenExpired(token)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
 }
