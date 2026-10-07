@@ -1,19 +1,17 @@
 package com.example.demo.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.openproductsfacts.OpenProductsFactsSearchResponse;
-import com.example.demo.dto.product.ImportResult;
 import com.example.demo.service.OpenProductsFactsImportService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
-@RequestMapping("/admin/products/import")
+@RequestMapping("/import/products")
 public class ProductImportController {
     private final OpenProductsFactsImportService importService;
 
@@ -33,6 +31,5 @@ public class ProductImportController {
                 Math.max(1, startPage),
                 Math.min(1000, Math.max(1, pageSize)),
                 Math.min(100, Math.max(1, maxPages))));
-        /*return ;*/
     }
 }

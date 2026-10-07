@@ -1,7 +1,6 @@
 package com.example.demo.configuration;
 
 import com.example.demo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,17 +25,25 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    @Autowired
     private UserService userService;
 
-    @Autowired
     private JWTAuthFilter jwtAuthFilter;
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
     private CookieAuthFilter cookieAuthFilter;
+
+    public SecurityConfig(
+        UserService userService,
+        JWTAuthFilter jwtAuthFilter,
+        PasswordEncoder passwordEncoder,
+        CookieAuthFilter cookieAuthFilter
+    ){
+        this.userService = userService;
+        this.jwtAuthFilter = jwtAuthFilter;
+        this.passwordEncoder = passwordEncoder;
+        this.cookieAuthFilter = cookieAuthFilter;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector)
@@ -51,7 +58,7 @@ public class SecurityConfig {
                         .requestMatchers(mvcMatcherBuilder.pattern("/h2-console/**")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/user")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/product")).permitAll()
-                        .requestMatchers(mvcMatcherBuilder.pattern("/admin/products/import/**")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern("/import/products**")).hasAnyAuthority("ADMIN")
                         .requestMatchers(mvcMatcherBuilder.pattern("/user/**")).hasAnyAuthority("USER")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
