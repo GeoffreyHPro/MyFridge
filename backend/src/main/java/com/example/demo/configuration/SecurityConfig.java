@@ -51,6 +51,7 @@ public class SecurityConfig {
                         .requestMatchers(mvcMatcherBuilder.pattern("/h2-console/**")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/user")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/product")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern("/admin/products/import/**")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/user/**")).hasAnyAuthority("USER")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

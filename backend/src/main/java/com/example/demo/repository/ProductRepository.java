@@ -1,6 +1,8 @@
 package com.example.demo.repository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +14,8 @@ import com.example.demo.model.Product;
 
 public interface ProductRepository extends JpaRepository<Product, String> {
     Optional<Product> findByEan(String ean);
+
+    List<Product> findAllByEanIn(Set<String> eans);
 
     Optional<Product> findByName(String name);
 
